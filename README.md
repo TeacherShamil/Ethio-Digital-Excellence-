@@ -51,7 +51,7 @@ The purpose of this project is to provide a simple and accessible digital platfo
 
 ## Developer
 
-Ethio-Digital Excellence
+Teacher Shamil founders of Ethio-Digital Excellence E-learning for student portal
 
 ## Status
 
