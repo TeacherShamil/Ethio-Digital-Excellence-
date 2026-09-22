@@ -1,281 +1,280 @@
-// Define an interface for Student if not already defined globally
-interface Student {
-  id: string | number;
-  name?: string;
-  phone?: string;
-  email?: string;
-  age?: string | number;
-  gender?: string;
-  course?: string;
-  city?: string;
-  message?: string;
-  registeredAt?: string;
+<script>
+
+/* =========================================
+   VIEW STUDENT
+   ========================================= */
+
+function viewStudent(id) {
+
+  const student = students.find(function(item) {
+    return item.id == id;
+  });
+
+  if (!student) {
+    alert("Student not found.");
+    return;
+  }
+
+  const details = document.getElementById("studentDetails");
+
+  if (details) {
+    details.innerHTML = `
+      <p><strong>Name:</strong> ${escapeHTML(student.name || "")}</p>
+      <p><strong>Phone:</strong> ${escapeHTML(student.phone || "")}</p>
+      <p><strong>Email:</strong> ${escapeHTML(student.email || "")}</p>
+      <p><strong>Age:</strong> ${escapeHTML(String(student.age || ""))}</p>
+      <p><strong>Gender:</strong> ${escapeHTML(student.gender || "")}</p>
+      <p><strong>Course:</strong> ${escapeHTML(student.course || "")}</p>
+      <p><strong>City:</strong> ${escapeHTML(student.city || "")}</p>
+      <p><strong>Message:</strong> ${escapeHTML(student.message || "")}</p>
+      <p><strong>Registered:</strong> ${escapeHTML(student.registeredAt || "")}</p>
+    `;
+  }
+
+  const viewModal = document.getElementById("viewModal");
+
+  if (viewModal) {
+    viewModal.style.display = "block";
+  }
 }
 
-// Assume students and other global variables are declared above
 
-    /* =========================================
-       VIEW STUDENT
-       ========================================= */
+/* =========================================
+   CLOSE VIEW MODAL
+   ========================================= */
 
-    function viewStudent(id: string | number): void {
+function closeViewModal() {
 
-      const student = students.find(
-        function(item: Student) {
-          return item.id == id;
-        }
-      );
+  const viewModal = document.getElementById("viewModal");
 
-      if (!student) {
-        alert("Student not found.");
-        return;
-      }
+  if (viewModal) {
+    viewModal.style.display = "none";
+  }
+}
 
-      const details = document.getElementById(
-        "studentDetails"
-      );
 
-      if (details) {
-        details.innerHTML = `
-          <p>
-            <strong>Name:</strong>
-            ${escapeHTML(student.name || "")}
-          </p>
-          <p>
-            <strong>Phone:</strong>
-            ${escapeHTML(student.phone || "")}
-          </p>
-          <p>
-            <strong>Email:</strong>
-            ${escapeHTML(student.email || "")}
-          </p>
-          <p>
-            <strong>Age:</strong>
-            ${escapeHTML(String(student.age || ""))}
-          </p>
-          <p>
-            <strong>Gender:</strong>
-            ${escapeHTML(student.gender || "")}
-          </p>
-          <p>
-            <strong>Course:</strong>
-            ${escapeHTML(student.course || "")}
-          </p>
-          <p>
-            <strong>City:</strong>
-            ${escapeHTML(student.city || "")}
-          </p>
-          <p>
-            <strong>Message:</strong>
-            ${escapeHTML(student.message || "")}
-          </p>
-          <p>
-            <strong>Registered:</strong>
-            ${escapeHTML(student.registeredAt || "")}
-          </p>
-        `;
-      }
+/* =========================================
+   EDIT STUDENT
+   ========================================= */
 
-      const viewModal = document.getElementById("viewModal");
-      if (viewModal) {
-        viewModal.style.display = "block";
-      }
+function editStudent(id) {
+
+  const student = students.find(function(item) {
+    return item.id == id;
+  });
+
+  if (!student) {
+    alert("Student not found.");
+    return;
+  }
+
+  const editId = document.getElementById("editId");
+  const editName = document.getElementById("editName");
+  const editPhone = document.getElementById("editPhone");
+  const editEmail = document.getElementById("editEmail");
+  const editAge = document.getElementById("editAge");
+  const editGender = document.getElementById("editGender");
+  const editCourse = document.getElementById("editCourse");
+  const editCity = document.getElementById("editCity");
+  const editMessage = document.getElementById("editMessage");
+
+  if (editId) editId.value = String(student.id);
+  if (editName) editName.value = student.name || "";
+  if (editPhone) editPhone.value = student.phone || "";
+  if (editEmail) editEmail.value = student.email || "";
+  if (editAge) editAge.value = String(student.age || "");
+  if (editGender) editGender.value = student.gender || "";
+  if (editCourse) editCourse.value = student.course || "";
+  if (editCity) editCity.value = student.city || "";
+  if (editMessage) editMessage.value = student.message || "";
+
+  const editModal = document.getElementById("editModal");
+
+  if (editModal) {
+    editModal.style.display = "block";
+  }
+}
+
+
+/* =========================================
+   EDIT FORM SUBMIT
+   ========================================= */
+
+const editForm = document.getElementById("editForm");
+
+if (editForm) {
+
+  editForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const editId = document.getElementById("editId");
+
+    if (!editId) {
+      return;
     }
 
+    const id = editId.value;
 
-    /* =========================================
-       CLOSE VIEW MODAL
-       ========================================= */
-
-    function closeViewModal(): void {
-      const viewModal = document.getElementById("viewModal");
-      if (viewModal) {
-        viewModal.style.display = "none";
-      }
-    }
-
-
-    /* =========================================
-       EDIT STUDENT
-       ========================================= */
-
-    function editStudent(id: string | number): void {
-
-      const student = students.find(
-        function(item: Student) {
-          return item.id == id;
-        }
-      );
-
-      if (!student) {
-        alert("Student not found.");
-        return;
-      }
-
-      (document.getElementById("editId") as HTMLInputElement).value = String(student.id);
-      (document.getElementById("editName") as HTMLInputElement).value = student.name || "";
-      (document.getElementById("editPhone") as HTMLInputElement).value = student.phone || "";
-      (document.getElementById("editEmail") as HTMLInputElement).value = student.email || "";
-      (document.getElementById("editAge") as HTMLInputElement).value = String(student.age || "");
-      (document.getElementById("editGender") as HTMLSelectElement).value = student.gender || "";
-      (document.getElementById("editCourse") as HTMLInputElement).value = student.course || "";
-      (document.getElementById("editCity") as HTMLInputElement).value = student.city || "";
-      (document.getElementById("editMessage") as HTMLTextAreaElement).value = student.message || "";
-
-      const editModal = document.getElementById("editModal");
-      if (editModal) {
-        editModal.style.display = "block";
-      }
-    }
-
-
-    /* =========================================
-       EDIT FORM SUBMIT
-       ========================================= */
-
-    const editForm = document.getElementById("editForm");
-    if (editForm) {
-      editForm.addEventListener(
-        "submit",
-        function(event: Event) {
-          event.preventDefault();
-
-          const id = (document.getElementById("editId") as HTMLInputElement).value;
-
-          const index = students.findIndex(
-            function(student: Student) {
-              return student.id == id;
-            }
-          );
-
-          if (index === -1) {
-            alert("Student not found.");
-            return;
-          }
-
-          students[index].name = (document.getElementById("editName") as HTMLInputElement).value;
-          students[index].phone = (document.getElementById("editPhone") as HTMLInputElement).value;
-          students[index].email = (document.getElementById("editEmail") as HTMLInputElement).value;
-          students[index].age = (document.getElementById("editAge") as HTMLInputElement).value;
-          students[index].gender = (document.getElementById("editGender") as HTMLSelectElement).value;
-          students[index].course = (document.getElementById("editCourse") as HTMLInputElement).value;
-          students[index].city = (document.getElementById("editCity") as HTMLInputElement).value;
-          students[index].message = (document.getElementById("editMessage") as HTMLTextAreaElement).value;
-
-          saveStudents();
-          updateStatistics();
-          displayStudents(students);
-          displayCourseStatistics();
-          closeEditModal();
-
-          alert("Student updated successfully.");
-        }
-      );
-    }
-
-
-    /* =========================================
-       CLOSE EDIT MODAL
-       ========================================= */
-
-    function closeEditModal(): void {
-      const editModal = document.getElementById("editModal");
-      if (editModal) {
-        editModal.style.display = "none";
-      }
-    }
-
-
-    /* =========================================
-       DELETE STUDENT
-       ========================================= */
-
-    function deleteStudent(id: string | number): void {
-
-      const student = students.find(
-        function(item: Student) {
-          return item.id == id;
-        }
-      );
-
-      if (!student) {
-        alert("Student not found.");
-        return;
-      }
-
-      const confirmed = confirm("Delete " + (student.name || "student") + "?");
-
-      if (!confirmed) {
-        return;
-      }
-
-      students = students.filter(
-        function(item: Student) {
-          return item.id != id;
-        }
-      );
-
-      saveStudents();
-      updateStatistics();
-      displayStudents(students);
-      displayCourseStatistics();
-    }
-
-
-    /* =========================================
-       DELETE ALL STUDENTS
-       ========================================= */
-
-    function deleteAllStudents(): void {
-
-      if (students.length === 0) {
-        alert("There are no students to delete.");
-        return;
-      }
-
-      const confirmed = confirm("Are you sure you want to delete ALL students?");
-
-      if (!confirmed) {
-        return;
-      }
-
-      students = [];
-      localStorage.removeItem("edeStudents");
-
-      updateStatistics();
-      displayStudents(students);
-      displayCourseStatistics();
-
-      alert("All students have been deleted.");
-    }
-
-
-    /* =========================================
-       LOGOUT
-       ========================================= */
-
-    function logout(): void {
-      localStorage.removeItem("edeAdminLoggedIn");
-      window.location.href = "login.html";
-    }
-
-
-    /* =========================================
-       EXPOSE FUNCTIONS TO WINDOW (Fixes unused error)
-       ========================================= */
-    (window as any).viewStudent = viewStudent;
-    (window as any).closeViewModal = closeViewModal;
-    (window as any).editStudent = editStudent;
-    (window as any).closeEditModal = closeEditModal;
-    (window as any).deleteStudent = deleteStudent;
-    (window as any).deleteAllStudents = deleteAllStudents;
-    (window as any).logout = logout;
-
-
-    /* =========================================
-       CLOSE MODALS WHEN CLICKING OUTSIDE
-       ========================================= */
-
-    window.addEventListener("click", function(event: MouseEvent) {
-      // Modal click outside logic can go here
+    const index = students.findIndex(function(student) {
+      return student.id == id;
     });
+
+    if (index === -1) {
+      alert("Student not found.");
+      return;
+    }
+
+    const editName = document.getElementById("editName");
+    const editPhone = document.getElementById("editPhone");
+    const editEmail = document.getElementById("editEmail");
+    const editAge = document.getElementById("editAge");
+    const editGender = document.getElementById("editGender");
+    const editCourse = document.getElementById("editCourse");
+    const editCity = document.getElementById("editCity");
+    const editMessage = document.getElementById("editMessage");
+
+    if (editName) students[index].name = editName.value;
+    if (editPhone) students[index].phone = editPhone.value;
+    if (editEmail) students[index].email = editEmail.value;
+    if (editAge) students[index].age = editAge.value;
+    if (editGender) students[index].gender = editGender.value;
+    if (editCourse) students[index].course = editCourse.value;
+    if (editCity) students[index].city = editCity.value;
+    if (editMessage) students[index].message = editMessage.value;
+
+    saveStudents();
+    updateStatistics();
+    displayStudents(students);
+    displayCourseStatistics();
+    closeEditModal();
+
+    alert("Student updated successfully.");
+  });
+}
+
+
+/* =========================================
+   CLOSE EDIT MODAL
+   ========================================= */
+
+function closeEditModal() {
+
+  const editModal = document.getElementById("editModal");
+
+  if (editModal) {
+    editModal.style.display = "none";
+  }
+}
+
+
+/* =========================================
+   DELETE STUDENT
+   ========================================= */
+
+function deleteStudent(id) {
+
+  const student = students.find(function(item) {
+    return item.id == id;
+  });
+
+  if (!student) {
+    alert("Student not found.");
+    return;
+  }
+
+  const confirmed = confirm(
+    "Delete " + (student.name || "student") + "?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  students = students.filter(function(item) {
+    return item.id != id;
+  });
+
+  saveStudents();
+  updateStatistics();
+  displayStudents(students);
+  displayCourseStatistics();
+}
+
+
+/* =========================================
+   DELETE ALL STUDENTS
+   ========================================= */
+
+function deleteAllStudents() {
+
+  if (students.length === 0) {
+    alert("There are no students to delete.");
+    return;
+  }
+
+  const confirmed = confirm(
+    "Are you sure you want to delete ALL students?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  students = [];
+
+  localStorage.removeItem("edeStudents");
+
+  updateStatistics();
+  displayStudents(students);
+  displayCourseStatistics();
+
+  alert("All students have been deleted.");
+}
+
+
+/* =========================================
+   LOGOUT
+   ========================================= */
+
+function logout() {
+
+  localStorage.removeItem("edeAdminLoggedIn");
+
+  window.location.href = "login.html";
+}
+
+
+/* =========================================
+   EXPOSE FUNCTIONS TO WINDOW
+   ========================================= */
+
+window.viewStudent = viewStudent;
+window.closeViewModal = closeViewModal;
+window.editStudent = editStudent;
+window.closeEditModal = closeEditModal;
+window.deleteStudent = deleteStudent;
+window.deleteAllStudents = deleteAllStudents;
+window.logout = logout;
+
+
+/* =========================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+   ========================================= */
+
+window.addEventListener("click", function(event) {
+
+  const viewModal = document.getElementById("viewModal");
+  const editModal = document.getElementById("editModal");
+
+  if (event.target === viewModal) {
+    closeViewModal();
+  }
+
+  if (event.target === editModal) {
+    closeEditModal();
+  }
+
+});
+
+</script>
