@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Register | Ethio-Digital Excellence</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #0b5ed7;
+      color: white;
+      padding: 18px 15px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      font-size: 14px;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 650px;
+      margin: 30px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h2 {
+      text-align: center;
+      color: #0b5ed7;
+      margin-bottom: 8px;
+    }
+
+    .intro {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+      color: #333;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #0b5ed7;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #0b5ed7;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #084298;
+    }
+
+    .back-btn {
+      margin-top: 12px;
+      background: #6c757d;
+    }
+
+    .back-btn:hover {
+      background: #495057;
+    }
+
+    #successMessage {
+      display: none;
+      background: #d1e7dd;
+      color: #0f5132;
+      border: 1px solid #badbcc;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      color: #777;
+      font-size: 13px;
+    }
+
+    @media (max-width: 500px) {
+
+      .container {
+        width: 95%;
+        margin: 20px auto;
+      }
+
+      .card {
+        padding: 20px 15px;
+      }
+
+      header h1 {
+        font-size: 21px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header>
+
+    <h1>
+      Ethio-Digital Excellence
+    </h1>
+
+    <p>
+      Learn Digital Skills. Build Your Future.
+    </p>
+
+  </header>
+
+
+
+  <!-- MAIN -->
+
+  <div class="container">
+
+    <div class="card">
+
+      <h2>
+        Student Registration
+      </h2>
+
+      <p class="intro">
+        Please fill in the information below to register for your selected course.
+      </p>
+
+
+      <!-- SUCCESS MESSAGE -->
+
+      <div id="successMessage">
+
+        Registration completed successfully!
+
+      </div>
+
+
+
+      <!-- REGISTRATION FORM -->
+
+      <form id="registrationForm">
+
+
+        <!-- FULL NAME -->
+
+        <div class="form-group">
+
+          <label for="name">
+            Full Name
+          </label>
+
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter your full name"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+          <label for="phone">
+            Phone Number
+          </label>
+
+          <input
+            type="tel"
+            id="phone"
+            placeholder="Enter your phone number"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label for="email">
+            Email Address
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email address"
+          >
+
+        </div>
+
+
+
+        <!-- AGE -->
+
+        <div class="form-group">
+
+          <label for="age">
+            Age
+          </label>
+
+          <input
+            type="number"
+            id="age"
+            placeholder="Enter your age"
+            min="10"
+            max="100"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- GENDER -->
+
+        <div class="form-group">
+
+          <label for="gender">
+            Gender
+          </label>
+
+          <select id="gender" required>
+
+            <option value="">
+              Select Gender
+            </option>
+
+            <option value="Male">
+              Male
+            </option>
+
+            <option value="Female">
+              Female
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- COURSE -->
+
+        <div class="form-group">
+
+          <label for="course">
+            Select Course
+          </label>
+
+          <select id="course" required>
+
+            <option value="">
+              Select Course
+            </option>
+
+            <option value="Programming">
+              1. Programming
+            </option>
+
+            <option value="Microsoft Excel">
+              2. Microsoft Excel
+            </option>
+
+            <option value="Microsoft Word">
+              3. Microsoft Word
+            </option>
+
+            <option value="Microsoft PowerPoint">
+              4. Microsoft PowerPoint
+            </option>
+
+            <option value="Basic Computer Skills">
+              5. Basic Computer Skills
+            </option>
+
+            <option value="Web Development">
+              6. Web Development
+            </option>
+
+            <option value="Fundamental Application Development">
+              7. Fundamental Application Development
+            </option>
+
+            <option value="Database">
+              8. Database
+            </option>
+
+            <option value="Basic English Language Skills">
+              9. Basic English Language Skills
+            </option>
+
+            <option value="Basic Afaan Oromoo Language Skills">
+              10. Basic Afaan Oromoo Language Skills
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- CITY -->
+
+        <div class="form-group">
+
+          <label for="city">
+            City / Town
+          </label>
+
+          <input
+            type="text"
+            id="city"
+            placeholder="Enter your city or town"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- ADDITIONAL INFORMATION -->
+
+        <div class="form-group">
+
+          <label for="message">
+            Additional Information
+          </label>
+
+          <textarea
+            id="message"
+            placeholder="Write additional information if necessary..."
+          ></textarea>
+
+        </div>
+
+
+
+        <!-- SUBMIT -->
+
+        <button
+          type="submit"
+          class="btn"
+        >
+
+          Submit Registration
+
+        </button>
+
+
+        <!-- BACK -->
+
+        <a
+          href="courses.html"
+          class="btn back-btn"
+        >
+
+          Back to Courses
+
+        </a>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    © 2026 Ethio-Digital Excellence.
+    All Rights Reserved.
+
+  </footer>
+
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+
+    /* =========================
+       AUTO SELECT COURSE
+    ========================= */
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const selectedCourse =
+      params.get("course");
+
+
+    if (selectedCourse) {
+
+      document
+        .getElementById("course")
+        .value = selectedCourse;
+
+    }
+
+
+
+    /* =========================
+       REGISTRATION FORM
+    ========================= */
+
+    document
+      .getElementById("registrationForm")
+      .addEventListener(
+        "submit",
+        function(event) {
+
+
+          /* STOP PAGE REFRESH */
+
+          event.preventDefault();
+
+
+
+          /* =========================
+             GET STUDENT INFORMATION
+          ========================= */
+
+          const student = {
+
+            id: Date.now(),
+
+            name:
+              document
+                .getElementById("name")
+                .value
+                .trim(),
+
+            phone:
+              document
+                .getElementById("phone")
+                .value
+                .trim(),
+
+            email:
+              document
+                .getElementById("email")
+                .value
+                .trim(),
+
+            age:
+              document
+                .getElementById("age")
+                .value
+                .trim(),
+
+            gender:
+              document
+                .getElementById("gender")
+                .value,
+
+            course:
+              document
+                .getElementById("course")
+                .value,
+
+            city:
+              document
+                .getElementById("city")
+                .value
+                .trim(),
+
+            message:
+              document
+                .getElementById("message")
+                .value
+                .trim(),
+
+            registeredAt:
+              new Date().toLocaleString()
+
+          };
+
+
+
+          /* =========================
+             GET EXISTING STUDENTS
+          ========================= */
+
+          let students =
+            JSON.parse(
+              localStorage.getItem(
+                "edeStudents"
+              )
+            ) || [];
+
+
+
+          /* =========================
+             ADD NEW STUDENT
+          ========================= */
+
+          students.push(student);
+
+
+
+          /* =========================
+             SAVE TO LOCAL STORAGE
+          ========================= */
+
+          localStorage.setItem(
+            "edeStudents",
+            JSON.stringify(students)
+          );
+
+
+
+          /* =========================
+             SHOW SUCCESS MESSAGE
+          ========================= */
+
+          document
+            .getElementById("successMessage")
+            .style.display = "block";
+
+
+
+          /* =========================
+             RESET FORM
+          ========================= */
+
+          document
+            .getElementById("registrationForm")
+            .reset();
+
+
+
+          /* =========================
+             SCROLL TO TOP
+          ========================= */
+
+          window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+          });
+
+
+        }
+      );
+
+
+  </script>
+
+
+</body>
+
+</html>

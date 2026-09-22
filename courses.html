@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Courses | Ethio-Digital Excellence</title>
+
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+
+    body {
+      background: #f5f7fb;
+      color: #222;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      background: #0b3d91;
+      color: white;
+
+      padding: 18px 20px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+
+    .logo {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+
+    nav a {
+      color: white;
+      text-decoration: none;
+
+      margin-left: 15px;
+
+      font-size: 14px;
+    }
+
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      background:
+        linear-gradient(
+          135deg,
+          #0b3d91,
+          #1976d2
+        );
+
+      color: white;
+
+      text-align: center;
+
+      padding: 55px 20px;
+    }
+
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+
+    .hero p {
+      font-size: 18px;
+    }
+
+
+    /* =========================
+       COURSES SECTION
+    ========================= */
+
+    .section {
+      max-width: 1100px;
+
+      margin: auto;
+
+      padding: 45px 20px;
+    }
+
+
+    .section h2 {
+      text-align: center;
+
+      color: #0b3d91;
+
+      font-size: 32px;
+
+      margin-bottom: 30px;
+    }
+
+
+    .courses {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(280px, 1fr)
+        );
+
+      gap: 25px;
+    }
+
+
+    /* =========================
+       COURSE CARD
+    ========================= */
+
+    .course {
+      background: white;
+
+      padding: 30px 25px;
+
+      border-radius: 16px;
+
+      text-align: center;
+
+      box-shadow:
+        0 4px 15px
+        rgba(0,0,0,0.08);
+
+      transition: 0.2s;
+    }
+
+
+    .course:hover {
+      transform: translateY(-3px);
+    }
+
+
+    .number {
+      width: 55px;
+      height: 55px;
+
+      background: #0b3d91;
+
+      color: white;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      margin: 0 auto 15px;
+
+      font-size: 22px;
+
+      font-weight: bold;
+    }
+
+
+    .icon {
+      font-size: 48px;
+
+      margin-bottom: 12px;
+    }
+
+
+    .course h3 {
+      color: #0b3d91;
+
+      font-size: 24px;
+
+      margin-bottom: 12px;
+    }
+
+
+    .course p {
+      color: #666;
+
+      line-height: 1.6;
+
+      font-size: 15px;
+
+      margin-bottom: 18px;
+    }
+
+
+    /* =========================
+       LEVEL
+    ========================= */
+
+    .level {
+      display: inline-block;
+
+      background: #eaf2ff;
+
+      color: #0b3d91;
+
+      padding: 7px 12px;
+
+      border-radius: 20px;
+
+      font-size: 13px;
+
+      font-weight: bold;
+
+      margin-bottom: 15px;
+    }
+
+
+    /* =========================
+       DETAILS BUTTON
+    ========================= */
+
+    .details-btn {
+      width: 100%;
+
+      border: none;
+
+      background: #f0f3f8;
+
+      color: #0b3d91;
+
+      padding: 11px;
+
+      border-radius: 7px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      margin-bottom: 10px;
+    }
+
+
+    .details-btn:hover {
+      background: #e1e8f5;
+    }
+
+
+    .details {
+      display: none;
+
+      text-align: left;
+
+      background: #f8faff;
+
+      padding: 15px;
+
+      border-radius: 8px;
+
+      margin-bottom: 15px;
+
+      color: #555;
+
+      line-height: 1.7;
+    }
+
+
+    .details ul {
+      padding-left: 20px;
+    }
+
+
+    /* =========================
+       ENROLL BUTTON
+    ========================= */
+
+    .enroll-btn {
+      display: block;
+
+      background: #0b3d91;
+
+      color: white;
+
+      text-decoration: none;
+
+      padding: 12px;
+
+      border-radius: 8px;
+
+      font-weight: bold;
+
+      transition: 0.2s;
+    }
+
+
+    .enroll-btn:hover {
+      background: #062b68;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      background: #0b3d91;
+
+      color: white;
+
+      text-align: center;
+
+      padding: 25px 15px;
+
+      margin-top: 30px;
+    }
+
+
+    footer p {
+      margin: 5px;
+
+      font-size: 14px;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      header {
+        justify-content: center;
+
+        text-align: center;
+      }
+
+
+      nav {
+        width: 100%;
+      }
+
+
+      nav a {
+        margin: 0 5px;
+
+        font-size: 13px;
+      }
+
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+
+      .hero p {
+        font-size: 17px;
+      }
+
+
+      .section {
+        padding: 35px 15px;
+      }
+
+
+      .section h2 {
+        font-size: 28px;
+      }
+
+
+      .courses {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <header>
+
+    <div class="logo">
+      Ethio-Digital Excellence
+    </div>
+
+
+    <nav>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="courses.html">
+        Courses
+      </a>
+
+      <a href="index.html#about">
+        About
+      </a>
+
+      <a href="register.html">
+        Register
+      </a>
+
+    </nav>
+
+  </header>
+
+
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <section class="hero">
+
+    <h1>
+      Our Digital Skills Courses
+    </h1>
+
+    <p>
+      Learn Digital Skills. Build Your Future.
+    </p>
+
+  </section>
+
+
+
+  <!-- =========================
+       COURSES
+  ========================= -->
+
+  <section class="section">
+
+    <h2>
+      Available Courses
+    </h2>
+
+
+    <div class="courses">
+
+
+      <!-- =========================
+           1. PROGRAMMING
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">1</div>
+
+        <div class="icon">💻</div>
+
+        <h3>Programming</h3>
+
+        <p>
+          Learn programming fundamentals,
+          coding and problem-solving skills.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details1')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details1"
+          class="details"
+        >
+
+          <ul>
+            <li>Programming fundamentals</li>
+            <li>Variables and data types</li>
+            <li>Basic programming logic</li>
+            <li>Problem solving</li>
+            <li>Introduction to coding</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Programming"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+
+      <!-- =========================
+           2. MICROSOFT EXCEL
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">2</div>
+
+        <div class="icon">📊</div>
+
+        <h3>Microsoft Excel</h3>
+
+        <p>
+          Learn spreadsheets, formulas,
+          functions and data management.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details2')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details2"
+          class="details"
+        >
+
+          <ul>
+            <li>Excel interface</li>
+            <li>Data entry</li>
+            <li>Formulas and functions</li>
+            <li>Tables and formatting</li>
+            <li>Basic data analysis</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Microsoft%20Excel"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+
+      <!-- =========================
+           3. MICROSOFT WORD
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">3</div>
+
+        <div class="icon">📝</div>
+
+        <h3>Microsoft Word</h3>
+
+        <p>
+          Learn professional document
+          creation and formatting.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details3')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details3"
+          class="details"
+        >
+
+          <ul>
+            <li>Creating documents</li>
+            <li>Text formatting</li>
+            <li>Page layout</li>
+            <li>Tables and images</li>
+            <li>Printing and saving documents</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Microsoft%20Word"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+
+      <!-- =========================
+           4. MICROSOFT POWERPOINT
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">4</div>
+
+        <div class="icon">📽️</div>
+
+        <h3>Microsoft PowerPoint</h3>
+
+        <p>
+          Learn how to create attractive
+          and professional presentations.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details4')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details4"
+          class="details"
+        >
+
+          <ul>
+            <li>Creating presentations</li>
+            <li>Slide design</li>
+            <li>Text and images</li>
+            <li>Transitions and animations</li>
+            <li>Presentation skills</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Microsoft%20PowerPoint"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+
+      <!-- =========================
+           5. BASIC COMPUTER SKILLS
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">5</div>
+
+        <div class="icon">🖥️</div>
+
+        <h3>Basic Computer Skills</h3>
+
+        <p>
+          Build essential computer skills
+          for everyday digital work.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details5')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details5"
+          class="details"
+        >
+
+          <ul>
+            <li>Computer fundamentals</li>
+            <li>Keyboard and mouse skills</li>
+            <li>Files and folders</li>
+            <li>Internet basics</li>
+            <li>Basic computer safety</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Basic%20Computer%20Skills"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+
+      <!-- =========================
+           6. WEB DEVELOPMENT
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">6</div>
+
+        <div class="icon">🌐</div>
+
+        <h3>Web Development</h3>
+
+        <p>
+          Learn how to create modern
+          websites using web technologies.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details6')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details6"
+          class="details"
+        >
+
+          <ul>
+            <li>HTML fundamentals</li>
+            <li>CSS fundamentals</li>
+            <li>JavaScript basics</li>
+            <li>Website structure</li>
+            <li>Responsive web design</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Web%20Development"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+
+      <!-- =========================
+           7. FUNDAMENTAL APPLICATION DEVELOPMENT
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">7</div>
+
+        <div class="icon">📱</div>
+
+        <h3>
+          Fundamental Application Development
+        </h3>
+
+        <p>
+          Learn the basic concepts of
+          developing digital applications.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details7')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details7"
+          class="details"
+        >
+
+          <ul>
+            <li>Application development concepts</li>
+            <li>User interface basics</li>
+            <li>Application logic</li>
+            <li>Basic programming concepts</li>
+            <li>Introduction to app projects</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Fundamental%20Application%20Development"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+
+      <!-- =========================
+           8. DATABASE
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">8</div>
+
+        <div class="icon">🗄️</div>
+
+        <h3>Database</h3>
+
+        <p>
+          Learn how to organize, manage
+          and work with digital data.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details8')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details8"
+          class="details"
+        >
+
+          <ul>
+            <li>Database fundamentals</li>
+            <li>Tables and records</li>
+            <li>Data organization</li>
+            <li>Basic SQL concepts</li>
+            <li>Database management</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Database"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+
+      <!-- =========================
+           9. BASIC ENGLISH LANGUAGE SKILLS
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">9</div>
+
+        <div class="icon">🇬🇧</div>
+
+        <h3>
+          Basic English Language Skills
+        </h3>
+
+        <p>
+          Develop basic English skills
+          for communication and learning.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details9')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details9"
+          class="details"
+        >
+
+          <ul>
+            <li>Basic vocabulary</li>
+            <li>Simple grammar</li>
+            <li>Reading skills</li>
+            <li>Writing skills</li>
+            <li>Basic communication</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Basic%20English%20Language%20Skills"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+
+      <!-- =========================
+           10. BASIC AFAAN OROMOO LANGUAGE SKILLS
+      ========================= -->
+
+      <div class="course">
+
+        <div class="number">10</div>
+
+        <div class="icon">🗣️</div>
+
+        <h3>
+          Basic Afaan Oromoo Language Skills
+        </h3>
+
+        <p>
+          Develop basic Afaan Oromoo
+          reading, writing and communication skills.
+        </p>
+
+        <span class="level">
+          Beginner
+        </span>
+
+        <button
+          class="details-btn"
+          onclick="toggleDetails('details10')"
+        >
+          What You Will Learn
+        </button>
+
+        <div
+          id="details10"
+          class="details"
+        >
+
+          <ul>
+            <li>Basic Afaan Oromoo vocabulary</li>
+            <li>Reading skills</li>
+            <li>Writing skills</li>
+            <li>Basic grammar</li>
+            <li>Communication skills</li>
+          </ul>
+
+        </div>
+
+        <a
+          href="register.html?course=Basic%20Afaan%20Oromoo%20Language%20Skills"
+          class="enroll-btn"
+        >
+          Enroll Now
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
+
+    <p>
+      <strong>
+        Ethio-Digital Excellence
+      </strong>
+    </p>
+
+    <p>
+      Learn Digital Skills. Build Your Future.
+    </p>
+
+    <p>
+      &copy; 2026 Ethio-Digital Excellence.
+      All Rights Reserved.
+    </p>
+
+  </footer>
+
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
+  <script>
+
+    function toggleDetails(id) {
+      const details = document.getElementById(id);
+
+      if (!details) {
+        return;
+      }
+
+      if (details.style.display === "block") {
+        details.style.display = "none";
+      } else {
+        details.style.display = "block";
+      }
+    }
+
+  </script>
+
+
+</body>
+
+</html>

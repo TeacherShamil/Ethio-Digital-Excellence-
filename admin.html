@@ -1,0 +1,281 @@
+// Define an interface for Student if not already defined globally
+interface Student {
+  id: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  age?: string | number;
+  gender?: string;
+  course?: string;
+  city?: string;
+  message?: string;
+  registeredAt?: string;
+}
+
+// Assume students and other global variables are declared above
+
+    /* =========================================
+       VIEW STUDENT
+       ========================================= */
+
+    function viewStudent(id: string | number): void {
+
+      const student = students.find(
+        function(item: Student) {
+          return item.id == id;
+        }
+      );
+
+      if (!student) {
+        alert("Student not found.");
+        return;
+      }
+
+      const details = document.getElementById(
+        "studentDetails"
+      );
+
+      if (details) {
+        details.innerHTML = `
+          <p>
+            <strong>Name:</strong>
+            ${escapeHTML(student.name || "")}
+          </p>
+          <p>
+            <strong>Phone:</strong>
+            ${escapeHTML(student.phone || "")}
+          </p>
+          <p>
+            <strong>Email:</strong>
+            ${escapeHTML(student.email || "")}
+          </p>
+          <p>
+            <strong>Age:</strong>
+            ${escapeHTML(String(student.age || ""))}
+          </p>
+          <p>
+            <strong>Gender:</strong>
+            ${escapeHTML(student.gender || "")}
+          </p>
+          <p>
+            <strong>Course:</strong>
+            ${escapeHTML(student.course || "")}
+          </p>
+          <p>
+            <strong>City:</strong>
+            ${escapeHTML(student.city || "")}
+          </p>
+          <p>
+            <strong>Message:</strong>
+            ${escapeHTML(student.message || "")}
+          </p>
+          <p>
+            <strong>Registered:</strong>
+            ${escapeHTML(student.registeredAt || "")}
+          </p>
+        `;
+      }
+
+      const viewModal = document.getElementById("viewModal");
+      if (viewModal) {
+        viewModal.style.display = "block";
+      }
+    }
+
+
+    /* =========================================
+       CLOSE VIEW MODAL
+       ========================================= */
+
+    function closeViewModal(): void {
+      const viewModal = document.getElementById("viewModal");
+      if (viewModal) {
+        viewModal.style.display = "none";
+      }
+    }
+
+
+    /* =========================================
+       EDIT STUDENT
+       ========================================= */
+
+    function editStudent(id: string | number): void {
+
+      const student = students.find(
+        function(item: Student) {
+          return item.id == id;
+        }
+      );
+
+      if (!student) {
+        alert("Student not found.");
+        return;
+      }
+
+      (document.getElementById("editId") as HTMLInputElement).value = String(student.id);
+      (document.getElementById("editName") as HTMLInputElement).value = student.name || "";
+      (document.getElementById("editPhone") as HTMLInputElement).value = student.phone || "";
+      (document.getElementById("editEmail") as HTMLInputElement).value = student.email || "";
+      (document.getElementById("editAge") as HTMLInputElement).value = String(student.age || "");
+      (document.getElementById("editGender") as HTMLSelectElement).value = student.gender || "";
+      (document.getElementById("editCourse") as HTMLInputElement).value = student.course || "";
+      (document.getElementById("editCity") as HTMLInputElement).value = student.city || "";
+      (document.getElementById("editMessage") as HTMLTextAreaElement).value = student.message || "";
+
+      const editModal = document.getElementById("editModal");
+      if (editModal) {
+        editModal.style.display = "block";
+      }
+    }
+
+
+    /* =========================================
+       EDIT FORM SUBMIT
+       ========================================= */
+
+    const editForm = document.getElementById("editForm");
+    if (editForm) {
+      editForm.addEventListener(
+        "submit",
+        function(event: Event) {
+          event.preventDefault();
+
+          const id = (document.getElementById("editId") as HTMLInputElement).value;
+
+          const index = students.findIndex(
+            function(student: Student) {
+              return student.id == id;
+            }
+          );
+
+          if (index === -1) {
+            alert("Student not found.");
+            return;
+          }
+
+          students[index].name = (document.getElementById("editName") as HTMLInputElement).value;
+          students[index].phone = (document.getElementById("editPhone") as HTMLInputElement).value;
+          students[index].email = (document.getElementById("editEmail") as HTMLInputElement).value;
+          students[index].age = (document.getElementById("editAge") as HTMLInputElement).value;
+          students[index].gender = (document.getElementById("editGender") as HTMLSelectElement).value;
+          students[index].course = (document.getElementById("editCourse") as HTMLInputElement).value;
+          students[index].city = (document.getElementById("editCity") as HTMLInputElement).value;
+          students[index].message = (document.getElementById("editMessage") as HTMLTextAreaElement).value;
+
+          saveStudents();
+          updateStatistics();
+          displayStudents(students);
+          displayCourseStatistics();
+          closeEditModal();
+
+          alert("Student updated successfully.");
+        }
+      );
+    }
+
+
+    /* =========================================
+       CLOSE EDIT MODAL
+       ========================================= */
+
+    function closeEditModal(): void {
+      const editModal = document.getElementById("editModal");
+      if (editModal) {
+        editModal.style.display = "none";
+      }
+    }
+
+
+    /* =========================================
+       DELETE STUDENT
+       ========================================= */
+
+    function deleteStudent(id: string | number): void {
+
+      const student = students.find(
+        function(item: Student) {
+          return item.id == id;
+        }
+      );
+
+      if (!student) {
+        alert("Student not found.");
+        return;
+      }
+
+      const confirmed = confirm("Delete " + (student.name || "student") + "?");
+
+      if (!confirmed) {
+        return;
+      }
+
+      students = students.filter(
+        function(item: Student) {
+          return item.id != id;
+        }
+      );
+
+      saveStudents();
+      updateStatistics();
+      displayStudents(students);
+      displayCourseStatistics();
+    }
+
+
+    /* =========================================
+       DELETE ALL STUDENTS
+       ========================================= */
+
+    function deleteAllStudents(): void {
+
+      if (students.length === 0) {
+        alert("There are no students to delete.");
+        return;
+      }
+
+      const confirmed = confirm("Are you sure you want to delete ALL students?");
+
+      if (!confirmed) {
+        return;
+      }
+
+      students = [];
+      localStorage.removeItem("edeStudents");
+
+      updateStatistics();
+      displayStudents(students);
+      displayCourseStatistics();
+
+      alert("All students have been deleted.");
+    }
+
+
+    /* =========================================
+       LOGOUT
+       ========================================= */
+
+    function logout(): void {
+      localStorage.removeItem("edeAdminLoggedIn");
+      window.location.href = "login.html";
+    }
+
+
+    /* =========================================
+       EXPOSE FUNCTIONS TO WINDOW (Fixes unused error)
+       ========================================= */
+    (window as any).viewStudent = viewStudent;
+    (window as any).closeViewModal = closeViewModal;
+    (window as any).editStudent = editStudent;
+    (window as any).closeEditModal = closeEditModal;
+    (window as any).deleteStudent = deleteStudent;
+    (window as any).deleteAllStudents = deleteAllStudents;
+    (window as any).logout = logout;
+
+
+    /* =========================================
+       CLOSE MODALS WHEN CLICKING OUTSIDE
+       ========================================= */
+
+    window.addEventListener("click", function(event: MouseEvent) {
+      // Modal click outside logic can go here
+    });
