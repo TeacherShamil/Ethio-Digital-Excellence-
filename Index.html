@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethio-Digital Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        header {
+            background: #0d47a1;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.95rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .hero {
+            background: linear-gradient(135deg, #1565c0, #0d47a1);
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            background: white;
+            color: #0d47a1;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 2rem 1rem;
+        }
+        .section-title {
+            text-align: center;
+            color: #0d47a1;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .course-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .course-card h3 {
+            color: #0d47a1;
+            margin-bottom: 0.5rem;
+        }
+        .price {
+            font-weight: bold;
+            color: #2e7d32;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+        .pay-btn {
+            background: #1565c0;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .about-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #0d47a1;
+            color: white;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Ethio-Digital Excellence</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#courses">Courses</a>
+            <a href="#about">About</a>
+            <a href="#register">Register</a>
+            <a href="#admin">Admin Login</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Ethio-Digital Excellence</h1>
+        <p>Learn Digital Skills. Build Your Future.</p>
+        <div>
+            <a href="#courses" class="btn">Explore Courses</a>
+            <a href="#register" class="btn btn-outline">Register Now</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- COURSES & PAYMENT SECTION -->
+        <section id="courses">
+            <h2 class="section-title">Our Digital Skills Courses & Pricing</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <h3>1. Programming Fundamentals</h3>
+                    <p>Learn programming fundamentals, coding logic, and basic software structures.</p>
+                    <div class="price">Kafaltii: 500 ETB</div>
+                    <a href="#register" class="pay-btn">Kaffalii / Galmaa'i</a>
+                </div>
+                <div class="course-card">
+                    <h3>2. Microsoft Excel & Data</h3>
+                    <p>Master spreadsheets, formulas, data management, and automated templates.</p>
+                    <div class="price">Kafaltii: 400 ETB</div>
+                    <a href="#register" class="pay-btn">Kaffalii / Galmaa'i</a>
+                </div>
+                <div class="course-card">
+                    <h3>3. Web Development Basics</h3>
+                    <p>Build responsive web pages using HTML, CSS, and modern web frameworks.</p>
+                    <div class="price">Kafaltii: 600 ETB</div>
+                    <a href="#register" class="pay-btn">Kaffalii / Galmaa'i</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="about-section">
+            <h2 class="section-title" style="margin-bottom: 1rem;">About Ethio-Digital Excellence</h2>
+            <p style="line-height: 1.6; text-align: center;">
+                Ethio-Digital Excellence initiative is dedicated to rendering digital literacy, computer programming skills, and ICT infrastructure for students and community members. Our mission is to bridge the digital divide and empower the youth with modern technological capabilities.
+            </p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Ethio-Digital Excellence. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
