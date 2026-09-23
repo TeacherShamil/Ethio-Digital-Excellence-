@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ethio-Digital Excellence Student Administration">
+  <title>Admin Dashboard | Ethio-Digital Excellence</title>
+  <style>
+    /* Design styles as provided */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, Helvetica, sans-serif; background: #f4f7fb; color: #1f2937; line-height: 1.5; }
+    button, input, select, textarea { font-family: inherit; }
+    button { cursor: pointer; }
+    .header { background: #123b72; color: white; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 15px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .header h1 { font-size: 21px; }
+    .header p { font-size: 13px; opacity: 0.85; }
+    .logout-btn { background: #dc3545; color: white; border: none; border-radius: 7px; padding: 10px 16px; font-weight: bold; }
+    .logout-btn:hover { opacity: 0.9; }
+    .container { width: 94%; max-width: 1250px; margin: 25px auto; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 25px; }
+    .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 5px solid #123b72; }
+    .stat-card h3 { font-size: 14px; color: #6b7280; margin-bottom: 8px; }
+    .stat-card .number { font-size: 30px; font-weight: bold; color: #123b72; }
+    .card { background: white; border-radius: 12px; padding: 22px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    .card-title { font-size: 20px; color: #123b72; margin-bottom: 18px; font-weight: bold; }
+    .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #374151; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 12px; border: 1px solid #d1d5db; border-radius: 7px; outline: none; font-size: 14px; background: white; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #123b72; }
+    textarea { min-height: 90px; resize: vertical; }
+    .primary-btn { background: #123b72; color: white; border: none; border-radius: 7px; padding: 12px 20px; font-weight: bold; margin-top: 15px; }
+    .primary-btn:hover { opacity: 0.9; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+    .search-box { flex: 1; min-width: 220px; }
+    .search-box input { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 7px; outline: none; }
+    .danger-btn { background: #dc3545; color: white; border: none; border-radius: 7px; padding: 11px 16px; font-weight: bold; }
+    .table-wrapper { width: 100%; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 850px; }
+    th, td { padding: 12px 10px; border-bottom: 1px solid #e5e7eb; text-align: left; font-size: 14px; }
+    th { background: #f1f5f9; color: #374151; }
+    tr:hover td { background: #f8fafc; }
+    .action-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
+    .action-btn { border: none; border-radius: 5px; padding: 7px 10px; color: white; font-size: 12px; font-weight: bold; }
+    .view-btn { background: #2563eb; }
+    .edit-btn { background: #f59e0b; }
+    .delete-btn { background: #dc3545; }
+    .empty { text-align: center; padding: 30px; color: #6b7280; }
+    .modal { display: none; position: fixed; z-index: 500; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55); padding: 20px; overflow-y: auto; }
+    .modal-content { background: white; width: 100%; max-width: 600px; margin: 50px auto; border-radius: 12px; padding: 24px; position: relative; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+    .modal-content h2 { color: #123b72; margin-bottom: 20px; }
+    .close-btn { position: absolute; right: 15px; top: 12px; background: transparent; border: none; font-size: 28px; color: #555; }
+    .student-detail-row { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+    .student-detail-row strong { min-width: 110px; color: #374151; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+    .cancel-btn { background: #6b7280; color: white; border: none; border-radius: 7px; padding: 10px 16px; }
+    .course-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .course-item { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; }
+    .course-item strong { display: block; color: #123b72; margin-bottom: 5px; }
+    footer { text-align: center; padding: 25px; color: #6b7280; font-size: 13px; }
+    @media (max-width: 900px) { .stats-grid, .form-grid, .course-list { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr 1fr; } .form-grid, .course-list { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p>Ethio-Digital Excellence — Student Management</p>
+    </div>
+    <button type="button" class="logout-btn" onclick="logout()">Logout</button>
+  </header>
+
+  <main class="container">
+    <section class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Students</h3>
+        <div class="number" id="totalStudents">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Male Students</h3>
+        <div class="number" id="maleStudents">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Female Students</h3>
+        <div class="number" id="femaleStudents">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Courses</h3>
+        <div class="number" id="totalCourses">0</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">Add New Student</div>
+      <form id="studentForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="studentName">Full Name *</label>
+            <input type="text" id="studentName" required placeholder="Enter full name">
+          </div>
+          <div class="form-group">
+            <label for="studentPhone">Phone</label>
+            <input type="tel" id="studentPhone" placeholder="09XXXXXXXX">
+          </div>
+          <div class="form-group">
+            <label for="studentEmail">Email</label>
+            <input type="email" id="studentEmail" placeholder="example@email.com">
+          </div>
+          <div class="form-group">
+            <label for="studentAge">Age</label>
+            <input type="number" id="studentAge" min="1" max="120" placeholder="Age">
+          </div>
+          <div class="form-group">
+            <label for="studentGender">Gender</label>
+            <select id="studentGender">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="studentCourse">Course</label>
+            <input type="text" id="studentCourse" placeholder="Course name">
+          </div>
+          <div class="form-group">
+            <label for="studentCity">City</label>
+            <input type="text" id="studentCity" placeholder="City">
+          </div>
+          <div class="form-group full">
+            <label for="studentMessage">Message</label>
+            <textarea id="studentMessage" placeholder="Additional message..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="primary-btn">+ Add Student</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="card-title">Course Statistics</div>
+      <div id="courseStatistics" class="course-list"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">Student Management</div>
+      <div class="toolbar">
+        <div class="search-box">
+          <input type="search" id="searchStudent" placeholder="Search by name, phone, email, course or city...">
+        </div>
+        <button type="button" class="danger-btn" onclick="deleteAllStudents()">Delete All Students</button>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>Course</th>
+              <th>City</th>
+              <th>Registered</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modals -->
+  <div id="viewModal" class="modal">
+    <div class="modal-content">
+      <button type="button" class="close-btn" onclick="closeViewModal()">&times;</button>
+      <h2>Student Details</h2>
+      <div id="studentDetails"></div>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" onclick="closeViewModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <button type="button" class="close-btn" onclick="closeEditModal()">&times;</button>
+      <h2>Edit Student</h2>
+      <form id="editForm">
+        <input type="hidden" id="editId">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="editName">Full Name</label>
+            <input type="text" id="editName" required>
+          </div>
+          <div class="form-group">
+            <label for="editPhone">Phone</label>
+            <input type="tel" id="editPhone">
+          </div>
+          <div class="form-group">
+            <label for="editEmail">Email</label>
+            <input type="email" id="editEmail">
+          </div>
+          <div class="form-group">
+            <label for="editAge">Age</label>
+            <input type="number" id="editAge" min="1" max="120">
+          </div>
+          <div class="form-group">
+            <label for="editGender">Gender</label>
+            <select id="editGender">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="editCourse">Course</label>
+            <input type="text" id="editCourse">
+          </div>
+          <div class="form-group">
+            <label for="editCity">City</label>
+            <input type="text" id="editCity">
+          </div>
+          <div class="form-group full">
+            <label for="editMessage">Message</label>
+            <textarea id="editMessage"></textarea>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="cancel-btn" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" class="primary-btn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Ethio-Digital Excellence. Admin Dashboard.
+  </footer>
+
+  <script>
+    // Security check: Verify if admin is logged in (optional check if you use login.html)
+    // if (!localStorage.getItem("edeAdminLoggedIn")) { window.location.href = "login.html"; }
+
+    const STUDENT_STORAGE_KEY = "edeStudents";
+    let students = [];
+
+    function loadStudents() {
+      try {
+        const saved = localStorage.getItem(STUDENT_STORAGE_KEY);
+        students = saved ? JSON.parse(saved) : [];
+      } catch (error) { students = []; }
+    }
+
+    function saveStudents() {
+      localStorage.setItem(STUDENT_STORAGE_KEY, JSON.stringify(students));
+    }
+
+    function escapeHTML(value) {
+      if (!value) return "";
+      return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    function addStudent(event) {
+      event.preventDefault();
+      const name = document.getElementById("studentName").value.trim();
+      if (!name) return alert("Please enter the student's name.");
+
+      const student = {
+        id: Date.now().toString(),
+        name,
+        phone: document.getElementById("studentPhone").value.trim(),
+        email: document.getElementById("studentEmail").value.trim(),
+        age: document.getElementById("studentAge").value.trim(),
+        gender: document.getElementById("studentGender").value.trim(),
+        course: document.getElementById("studentCourse").value.trim(),
+        city: document.getElementById("studentCity").value.trim(),
+        message: document.getElementById("studentMessage").value.trim(),
+        registeredAt: new Date().toLocaleString()
+      };
+
+      students.push(student);
+      saveStudents();
+      document.getElementById("studentForm").reset();
+      updateAll();
+      alert("Student added successfully.");
+    }
+
+    function displayStudents(list) {
+      const tbody = document.getElementById("studentTableBody");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="9" class="empty">No students found.</td></tr>`;
+        return;
+      }
+
+      list.forEach((s, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td>${escapeHTML(s.name)}</td>
+            <td>${escapeHTML(s.phone)}</td>
+            <td>${escapeHTML(s.email)}</td>
+            <td>${escapeHTML(s.gender)}</td>
+            <td>${escapeHTML(s.course)}</td>
+            <td>${escapeHTML(s.city)}</td>
+            <td>${escapeHTML(s.registeredAt)}</td>
+            <td>
+              <div class="action-buttons">
+                <button type="button" class="action-btn view-btn" onclick="viewStudent('${s.id}')">View</button>
+                <button type="button" class="action-btn edit-btn" onclick="editStudent('${s.id}')">Edit</button>
+                <button type="button" class="action-btn delete-btn" onclick="deleteStudent('${s.id}')">Delete</button>
+              </div>
+            </td>
+          </tr>`;
+      });
+    }
+
+    function updateStatistics() {
+      document.getElementById("totalStudents").textContent = students.length;
+      document.getElementById("maleStudents").textContent = students.filter(s => s.gender?.toLowerCase() === "male").length;
+      document.getElementById("femaleStudents").textContent = students.filter(s => s.gender?.toLowerCase() === "female").length;
+      document.getElementById("totalCourses").textContent = new Set(students.map(s => s.course?.trim()).filter(Boolean)).size;
+    }
+
+    function displayCourseStatistics() {
+      const container = document.getElementById("courseStatistics");
+      if (!container) return;
+      container.innerHTML = "";
+      const counts = {};
+      students.forEach(s => {
+        const c = s.course?.trim();
+        if (c) counts[c] = (counts[c] || 0) + 1;
+      });
+      const keys = Object.keys(counts).sort();
+      if (!keys.length) {
+        container.innerHTML = `<div class="course-item"><strong>No courses yet</strong><span>Add students with course info.</span></div>`;
+        return;
+      }
+      keys.forEach(c => {
+        container.innerHTML += `<div class="course-item"><strong>${escapeHTML(c)}</strong><span>${counts[c]} student(s)</span></div>`;
+      });
+    }
+
+    function updateAll() {
+      updateStatistics();
+      displayStudents(students);
+      displayCourseStatistics();
+    }
+
+    function viewStudent(id) {
+      const s = students.find(item => item.id == id);
+      if (!s) return;
+      document.getElementById("studentDetails").innerHTML = `
+        <div class="student-detail-row"><strong>Name:</strong><span>${escapeHTML(s.name)}</span></div>
+        <div class="student-detail-row"><strong>Phone:</strong><span>${escapeHTML(s.phone)}</span></div>
+        <div class="student-detail-row"><strong>Email:</strong><span>${escapeHTML(s.email)}</span></div>
+        <div class="student-detail-row"><strong>Age:</strong><span>${escapeHTML(s.age)}</span></div>
+        <div class="student-detail-row"><strong>Gender:</strong><span>${escapeHTML(s.gender)}</span></div>
+        <div class="student-detail-row"><strong>Course:</strong><span>${escapeHTML(s.course)}</span></div>
+        <div class="student-detail-row"><strong>City:</strong><span>${escapeHTML(s.city)}</span></div>
+        <div class="student-detail-row"><strong>Message:</strong><span>${escapeHTML(s.message)}</span></div>
+        <div class="student-detail-row"><strong>Registered:</strong><span>${escapeHTML(s.registeredAt)}</span></div>`;
+      document.getElementById("viewModal").style.display = "block";
+    }
+
+    function closeViewModal() { document.getElementById("viewModal").style.display = "none"; }
+
+    function editStudent(id) {
+      const s = students.find(item => item.id == id);
+      if (!s) return;
+      document.getElementById("editId").value = s.id;
+      document.getElementById("editName").value = s.name || "";
+      document.getElementById("editPhone").value = s.phone || "";
+      document.getElementById("editEmail").value = s.email || "";
+      document.getElementById("editAge").value = s.age || "";
+      document.getElementById("editGender").value = s.gender || "";
+      document.getElementById("editCourse").value = s.course || "";
+      document.getElementById("editCity").value = s.city || "";
+      document.getElementById("editMessage").value = s.message || "";
+      document.getElementById("editModal").style.display = "block";
+    }
+
+    function closeEditModal() { document.getElementById("editModal").style.display = "none"; }
+
+    document.getElementById("editForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const id = document.getElementById("editId").value;
+      const idx = students.findIndex(s => s.id == id);
+      if (idx === -1) return;
+
+      students[idx] = {
+        ...students[idx],
+        name: document.getElementById("editName").value.trim(),
+        phone: document.getElementById("editPhone").value.trim(),
+        email: document.getElementById("editEmail").value.trim(),
+        age: document.getElementById("editAge").value.trim(),
+        gender: document.getElementById("editGender").value.trim(),
+        course: document.getElementById("editCourse").value.trim(),
+        city: document.getElementById("editCity").value.trim(),
+        message: document.getElementById("editMessage").value.trim()
+      };
+
+      saveStudents();
+      updateAll();
+      closeEditModal();
+      alert("Student updated successfully.");
+    });
+
+    function deleteStudent(id) {
+      if (!confirm("Are you sure you want to delete this student?")) return;
+      students = students.filter(s => s.id != id);
+      saveStudents();
+      updateAll();
+    }
+
+    function deleteAllStudents() {
+      if (!students.length || !confirm("Are you sure you want to delete ALL students?")) return;
+      students = [];
+      localStorage.removeItem(STUDENT_STORAGE_KEY);
+      updateAll();
+      alert("All students have been deleted.");
+    }
+
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        localStorage.removeItem("edeAdminLoggedIn");
+        window.location.href = "login.html";
+      }
+    }
+
+    document.getElementById("searchStudent").addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      if (!q) return displayStudents(students);
+      const filtered = students.filter(s => Object.values(s).join(" ").toLowerCase().includes(q));
+      displayStudents(filtered);
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target.id === "viewModal") closeViewModal();
+      if (e.target.id === "editModal") closeEditModal();
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadStudents();
+      updateAll();
+      document.getElementById("studentForm").addEventListener("submit", addStudent);
+    });
+  </script>
+</body>
+</html>
