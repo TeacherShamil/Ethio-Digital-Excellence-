@@ -1,72 +1,231 @@
 <script>
+/* =========================================================
+   STUDENT MANAGEMENT SYSTEM
+   GitHub Pages / Static Website Compatible
+   ========================================================= */
 
-/* =========================================
+
+/* =========================================================
+   STORAGE KEY
+   ========================================================= */
+
+const STUDENT_STORAGE_KEY = "edeStudents";
+
+
+/* =========================================================
+   STUDENT DATA
+   ========================================================= */
+
+let students = [];
+
+
+/* =========================================================
+   LOAD STUDENTS FROM LOCAL STORAGE
+   ========================================================= */
+
+function loadStudents() {
+
+  try {
+
+    const savedStudents = localStorage.getItem(STUDENT_STORAGE_KEY);
+
+    if (savedStudents) {
+
+      const parsedStudents = JSON.parse(savedStudents);
+
+      if (Array.isArray(parsedStudents)) {
+        students = parsedStudents;
+      } else {
+        students = [];
+      }
+
+    } else {
+
+      students = [];
+
+    }
+
+  } catch (error) {
+
+    console.error("Error loading students:", error);
+
+    students = [];
+
+  }
+
+}
+
+
+/* =========================================================
+   SAVE STUDENTS TO LOCAL STORAGE
+   ========================================================= */
+
+function saveStudents() {
+
+  try {
+
+    localStorage.setItem(
+      STUDENT_STORAGE_KEY,
+      JSON.stringify(students)
+    );
+
+  } catch (error) {
+
+    console.error("Error saving students:", error);
+
+    alert("Unable to save student data.");
+
+  }
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   Prevents HTML injection
+   ========================================================= */
+
+function escapeHTML(value) {
+
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
    VIEW STUDENT
-   ========================================= */
+   ========================================================= */
 
 function viewStudent(id) {
 
   const student = students.find(function(item) {
-    return item.id == id;
+    return String(item.id) === String(id);
   });
 
   if (!student) {
+
     alert("Student not found.");
+
     return;
   }
 
+
   const details = document.getElementById("studentDetails");
 
+
   if (details) {
+
     details.innerHTML = `
-      <p><strong>Name:</strong> ${escapeHTML(student.name || "")}</p>
-      <p><strong>Phone:</strong> ${escapeHTML(student.phone || "")}</p>
-      <p><strong>Email:</strong> ${escapeHTML(student.email || "")}</p>
-      <p><strong>Age:</strong> ${escapeHTML(String(student.age || ""))}</p>
-      <p><strong>Gender:</strong> ${escapeHTML(student.gender || "")}</p>
-      <p><strong>Course:</strong> ${escapeHTML(student.course || "")}</p>
-      <p><strong>City:</strong> ${escapeHTML(student.city || "")}</p>
-      <p><strong>Message:</strong> ${escapeHTML(student.message || "")}</p>
-      <p><strong>Registered:</strong> ${escapeHTML(student.registeredAt || "")}</p>
+
+      <div class="student-detail-row">
+        <strong>Name:</strong>
+        <span>${escapeHTML(student.name)}</span>
+      </div>
+
+      <div class="student-detail-row">
+        <strong>Phone:</strong>
+        <span>${escapeHTML(student.phone)}</span>
+      </div>
+
+      <div class="student-detail-row">
+        <strong>Email:</strong>
+        <span>${escapeHTML(student.email)}</span>
+      </div>
+
+      <div class="student-detail-row">
+        <strong>Age:</strong>
+        <span>${escapeHTML(student.age)}</span>
+      </div>
+
+      <div class="student-detail-row">
+        <strong>Gender:</strong>
+        <span>${escapeHTML(student.gender)}</span>
+      </div>
+
+      <div class="student-detail-row">
+        <strong>Course:</strong>
+        <span>${escapeHTML(student.course)}</span>
+      </div>
+
+      <div class="student-detail-row">
+        <strong>City:</strong>
+        <span>${escapeHTML(student.city)}</span>
+      </div>
+
+      <div class="student-detail-row">
+        <strong>Message:</strong>
+        <span>${escapeHTML(student.message)}</span>
+      </div>
+
+      <div class="student-detail-row">
+        <strong>Registered:</strong>
+        <span>${escapeHTML(student.registeredAt)}</span>
+      </div>
+
     `;
+
   }
+
 
   const viewModal = document.getElementById("viewModal");
 
+
   if (viewModal) {
+
     viewModal.style.display = "block";
+
   }
+
 }
 
 
-/* =========================================
+/* =========================================================
    CLOSE VIEW MODAL
-   ========================================= */
+   ========================================================= */
 
 function closeViewModal() {
 
   const viewModal = document.getElementById("viewModal");
 
   if (viewModal) {
+
     viewModal.style.display = "none";
+
   }
+
 }
 
 
-/* =========================================
+/* =========================================================
    EDIT STUDENT
-   ========================================= */
+   ========================================================= */
 
 function editStudent(id) {
 
   const student = students.find(function(item) {
-    return item.id == id;
+
+    return String(item.id) === String(id);
+
   });
 
+
   if (!student) {
+
     alert("Student not found.");
+
     return;
+
   }
+
 
   const editId = document.getElementById("editId");
   const editName = document.getElementById("editName");
@@ -78,203 +237,490 @@ function editStudent(id) {
   const editCity = document.getElementById("editCity");
   const editMessage = document.getElementById("editMessage");
 
-  if (editId) editId.value = String(student.id);
-  if (editName) editName.value = student.name || "";
-  if (editPhone) editPhone.value = student.phone || "";
-  if (editEmail) editEmail.value = student.email || "";
-  if (editAge) editAge.value = String(student.age || "");
-  if (editGender) editGender.value = student.gender || "";
-  if (editCourse) editCourse.value = student.course || "";
-  if (editCity) editCity.value = student.city || "";
-  if (editMessage) editMessage.value = student.message || "";
+
+  if (editId) {
+    editId.value = String(student.id);
+  }
+
+  if (editName) {
+    editName.value = student.name || "";
+  }
+
+  if (editPhone) {
+    editPhone.value = student.phone || "";
+  }
+
+  if (editEmail) {
+    editEmail.value = student.email || "";
+  }
+
+  if (editAge) {
+    editAge.value = student.age || "";
+  }
+
+  if (editGender) {
+    editGender.value = student.gender || "";
+  }
+
+  if (editCourse) {
+    editCourse.value = student.course || "";
+  }
+
+  if (editCity) {
+    editCity.value = student.city || "";
+  }
+
+  if (editMessage) {
+    editMessage.value = student.message || "";
+  }
+
 
   const editModal = document.getElementById("editModal");
 
+
   if (editModal) {
+
     editModal.style.display = "block";
+
   }
+
 }
 
 
-/* =========================================
-   EDIT FORM SUBMIT
-   ========================================= */
-
-const editForm = document.getElementById("editForm");
-
-if (editForm) {
-
-  editForm.addEventListener("submit", function(event) {
-
-    event.preventDefault();
-
-    const editId = document.getElementById("editId");
-
-    if (!editId) {
-      return;
-    }
-
-    const id = editId.value;
-
-    const index = students.findIndex(function(student) {
-      return student.id == id;
-    });
-
-    if (index === -1) {
-      alert("Student not found.");
-      return;
-    }
-
-    const editName = document.getElementById("editName");
-    const editPhone = document.getElementById("editPhone");
-    const editEmail = document.getElementById("editEmail");
-    const editAge = document.getElementById("editAge");
-    const editGender = document.getElementById("editGender");
-    const editCourse = document.getElementById("editCourse");
-    const editCity = document.getElementById("editCity");
-    const editMessage = document.getElementById("editMessage");
-
-    if (editName) students[index].name = editName.value;
-    if (editPhone) students[index].phone = editPhone.value;
-    if (editEmail) students[index].email = editEmail.value;
-    if (editAge) students[index].age = editAge.value;
-    if (editGender) students[index].gender = editGender.value;
-    if (editCourse) students[index].course = editCourse.value;
-    if (editCity) students[index].city = editCity.value;
-    if (editMessage) students[index].message = editMessage.value;
-
-    saveStudents();
-    updateStatistics();
-    displayStudents(students);
-    displayCourseStatistics();
-    closeEditModal();
-
-    alert("Student updated successfully.");
-  });
-}
-
-
-/* =========================================
+/* =========================================================
    CLOSE EDIT MODAL
-   ========================================= */
+   ========================================================= */
 
 function closeEditModal() {
 
   const editModal = document.getElementById("editModal");
 
   if (editModal) {
+
     editModal.style.display = "none";
+
   }
+
 }
 
 
-/* =========================================
-   DELETE STUDENT
-   ========================================= */
+/* =========================================================
+   UPDATE STUDENT
+   ========================================================= */
+
+function updateStudent(event) {
+
+  event.preventDefault();
+
+
+  const editId = document.getElementById("editId");
+
+
+  if (!editId) {
+
+    alert("Student ID field not found.");
+
+    return;
+
+  }
+
+
+  const id = editId.value;
+
+
+  const index = students.findIndex(function(student) {
+
+    return String(student.id) === String(id);
+
+  });
+
+
+  if (index === -1) {
+
+    alert("Student not found.");
+
+    return;
+
+  }
+
+
+  const editName = document.getElementById("editName");
+  const editPhone = document.getElementById("editPhone");
+  const editEmail = document.getElementById("editEmail");
+  const editAge = document.getElementById("editAge");
+  const editGender = document.getElementById("editGender");
+  const editCourse = document.getElementById("editCourse");
+  const editCity = document.getElementById("editCity");
+  const editMessage = document.getElementById("editMessage");
+
+
+  if (editName) {
+    students[index].name = editName.value.trim();
+  }
+
+  if (editPhone) {
+    students[index].phone = editPhone.value.trim();
+  }
+
+  if (editEmail) {
+    students[index].email = editEmail.value.trim();
+  }
+
+  if (editAge) {
+    students[index].age = editAge.value.trim();
+  }
+
+  if (editGender) {
+    students[index].gender = editGender.value.trim();
+  }
+
+  if (editCourse) {
+    students[index].course = editCourse.value.trim();
+  }
+
+  if (editCity) {
+    students[index].city = editCity.value.trim();
+  }
+
+  if (editMessage) {
+    students[index].message = editMessage.value.trim();
+  }
+
+
+  saveStudents();
+
+
+  if (typeof updateStatistics === "function") {
+    updateStatistics();
+  }
+
+
+  if (typeof displayStudents === "function") {
+    displayStudents(students);
+  }
+
+
+  if (typeof displayCourseStatistics === "function") {
+    displayCourseStatistics();
+  }
+
+
+  closeEditModal();
+
+
+  alert("Student updated successfully.");
+
+}
+
+
+/* =========================================================
+   DELETE ONE STUDENT
+   ========================================================= */
 
 function deleteStudent(id) {
 
   const student = students.find(function(item) {
-    return item.id == id;
+
+    return String(item.id) === String(id);
+
   });
+
 
   if (!student) {
+
     alert("Student not found.");
+
     return;
+
   }
+
+
+  const studentName = student.name || "student";
+
 
   const confirmed = confirm(
-    "Delete " + (student.name || "student") + "?"
+    "Are you sure you want to delete " +
+    studentName +
+    "?"
   );
 
+
   if (!confirmed) {
+
     return;
+
   }
 
+
   students = students.filter(function(item) {
-    return item.id != id;
+
+    return String(item.id) !== String(id);
+
   });
 
+
   saveStudents();
-  updateStatistics();
-  displayStudents(students);
-  displayCourseStatistics();
+
+
+  if (typeof updateStatistics === "function") {
+    updateStatistics();
+  }
+
+
+  if (typeof displayStudents === "function") {
+    displayStudents(students);
+  }
+
+
+  if (typeof displayCourseStatistics === "function") {
+    displayCourseStatistics();
+  }
+
+
+  alert("Student deleted successfully.");
+
 }
 
 
-/* =========================================
+/* =========================================================
    DELETE ALL STUDENTS
-   ========================================= */
+   ========================================================= */
 
 function deleteAllStudents() {
 
   if (students.length === 0) {
+
     alert("There are no students to delete.");
+
     return;
+
   }
+
 
   const confirmed = confirm(
     "Are you sure you want to delete ALL students?"
   );
 
+
   if (!confirmed) {
+
     return;
+
   }
+
 
   students = [];
 
-  localStorage.removeItem("edeStudents");
 
-  updateStatistics();
-  displayStudents(students);
-  displayCourseStatistics();
+  try {
+
+    localStorage.removeItem(STUDENT_STORAGE_KEY);
+
+  } catch (error) {
+
+    console.error(
+      "Error clearing student storage:",
+      error
+    );
+
+  }
+
+
+  if (typeof updateStatistics === "function") {
+    updateStatistics();
+  }
+
+
+  if (typeof displayStudents === "function") {
+    displayStudents(students);
+  }
+
+
+  if (typeof displayCourseStatistics === "function") {
+    displayCourseStatistics();
+  }
+
 
   alert("All students have been deleted.");
+
 }
 
 
-/* =========================================
+/* =========================================================
    LOGOUT
-   ========================================= */
+   ========================================================= */
 
 function logout() {
 
   localStorage.removeItem("edeAdminLoggedIn");
 
   window.location.href = "login.html";
+
 }
 
 
-/* =========================================
-   EXPOSE FUNCTIONS TO WINDOW
-   ========================================= */
-
-window.viewStudent = viewStudent;
-window.closeViewModal = closeViewModal;
-window.editStudent = editStudent;
-window.closeEditModal = closeEditModal;
-window.deleteStudent = deleteStudent;
-window.deleteAllStudents = deleteAllStudents;
-window.logout = logout;
-
-
-/* =========================================
+/* =========================================================
    CLOSE MODALS WHEN CLICKING OUTSIDE
-   ========================================= */
+   ========================================================= */
 
-window.addEventListener("click", function(event) {
+function setupModalEvents() {
 
-  const viewModal = document.getElementById("viewModal");
-  const editModal = document.getElementById("editModal");
+  window.addEventListener("click", function(event) {
 
-  if (event.target === viewModal) {
-    closeViewModal();
+    const viewModal =
+      document.getElementById("viewModal");
+
+    const editModal =
+      document.getElementById("editModal");
+
+
+    if (
+      viewModal &&
+      event.target === viewModal
+    ) {
+
+      closeViewModal();
+
+    }
+
+
+    if (
+      editModal &&
+      event.target === editModal
+    ) {
+
+      closeEditModal();
+
+    }
+
+  });
+
+}
+
+
+/* =========================================================
+   INITIALIZE PAGE
+   ========================================================= */
+
+function initializeStudentSystem() {
+
+  loadStudents();
+
+
+  const editForm =
+    document.getElementById("editForm");
+
+
+  if (editForm) {
+
+    editForm.addEventListener(
+      "submit",
+      updateStudent
+    );
+
   }
 
-  if (event.target === editModal) {
-    closeEditModal();
+
+  if (typeof updateStatistics === "function") {
+    updateStatistics();
   }
 
-});
+
+  if (typeof displayStudents === "function") {
+    displayStudents(students);
+  }
+
+
+  if (typeof displayCourseStatistics === "function") {
+    displayCourseStatistics();
+  }
+
+
+  setupModalEvents();
+
+}
+
+
+/* =========================================================
+   START AFTER HTML HAS LOADED
+   ========================================================= */
+
+if (
+  document.readyState === "loading"
+) {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    initializeStudentSystem
+  );
+
+} else {
+
+  initializeStudentSystem();
+
+}
+
+
+/* =========================================================
+   MAKE FUNCTIONS AVAILABLE TO HTML BUTTONS
+   ========================================================= */
+
+window.viewStudent =
+  viewStudent;
+
+window.closeViewModal =
+  closeViewModal;
+
+window.editStudent =
+  editStudent;
+
+window.closeEditModal =
+  closeEditModal;
+
+window.deleteStudent =
+  deleteStudent;
+
+window.deleteAllStudents =
+  deleteAllStudents;
+
+window.logout =
+  logout;
+
+window.saveStudents =
+  saveStudents;
+
+window.loadStudents =
+  loadStudents;
 
 </script>
+
+Wantiin kun sirreeffame
+
+Koodii kee duraanii keessatti:
+
+const editForm = document.getElementById("editForm");
+
+yoo "<script>" sun HTML formii olitti argame, "editForm" yeroo sana "null" ta'a. Kanaaf submit event hin qabatu.
+
+Ani gara:
+
+document.addEventListener(
+  "DOMContentLoaded",
+  initializeStudentSystem
+);
+
+tti jijjiireera. Kana jechuun HTML guutuun erga banamee booda JavaScript jalqaba.
+
+Akkasumas "escapeHTML()" dabaleera, kana malee:
+
+escapeHTML(student.name)
+
+irratti "ReferenceError" uumamuu danda'a.
+
+Garuu wanti tokko baay'ee barbaachisaa dha
+
+Koodiin kun sirrii ta'ee qofa website kee guutuu miti. Inni "displayStudents()", "updateStatistics()", fi "displayCourseStatistics()" akka project kee keessatti jiraatan eega.
+
+Kanaaf yoo GitHub irratti erga publish gootee View / Edit / Delete / Login keessaa tokko illee hin hojjenne, rakkoon file biraa keessa ta'uu danda'a.
+
+Amma tarkaanfiin itti aanu: "admin.html" ykn page ati keessatti student management kana fayyadamtu guutuu code isaa naaf ergi. Ani HTML + CSS + JavaScript isaa walitti qindeessee, GitHub Pages irratti kallattiin hojjetuuf version guutuu siif sirreessa.
