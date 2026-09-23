@@ -1,0 +1,2325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Ethio-Digital Excellence Student Administration"
+  >
+
+  <title>Admin Dashboard | Ethio-Digital Excellence</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+
+    /* =========================
+       HEADER
+       ========================= */
+
+    .header {
+      background: #123b72;
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .header h1 {
+      font-size: 21px;
+    }
+
+    .header p {
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    .logout-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      padding: 10px 16px;
+      font-weight: bold;
+    }
+
+    .logout-btn:hover {
+      opacity: 0.9;
+    }
+
+
+    /* =========================
+       CONTAINER
+       ========================= */
+
+    .container {
+      width: 94%;
+      max-width: 1250px;
+      margin: 25px auto;
+    }
+
+
+    /* =========================
+       STATISTICS
+       ========================= */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border-left: 5px solid #123b72;
+    }
+
+    .stat-card h3 {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .stat-card .number {
+      font-size: 30px;
+      font-weight: bold;
+      color: #123b72;
+    }
+
+
+    /* =========================
+       ADD STUDENT
+       ========================= */
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .card-title {
+      font-size: 20px;
+      color: #123b72;
+      margin-bottom: 18px;
+      font-weight: bold;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      outline: none;
+      font-size: 14px;
+      background: white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #123b72;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .primary-btn {
+      background: #123b72;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      padding: 12px 20px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .primary-btn:hover {
+      opacity: 0.9;
+    }
+
+
+    /* =========================
+       SEARCH / ACTIONS
+       ========================= */
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      outline: none;
+    }
+
+    .danger-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      padding: 11px 16px;
+      font-weight: bold;
+    }
+
+
+    /* =========================
+       TABLE
+       ========================= */
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #374151;
+    }
+
+    tr:hover td {
+      background: #f8fafc;
+    }
+
+
+    /* =========================
+       ACTION BUTTONS
+       ========================= */
+
+    .action-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      border: none;
+      border-radius: 5px;
+      padding: 7px 10px;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .view-btn {
+      background: #2563eb;
+    }
+
+    .edit-btn {
+      background: #f59e0b;
+    }
+
+    .delete-btn {
+      background: #dc3545;
+    }
+
+
+    /* =========================
+       EMPTY STATE
+       ========================= */
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: #6b7280;
+    }
+
+
+    /* =========================
+       MODAL
+       ========================= */
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 500;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      margin: 50px auto;
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    .modal-content h2 {
+      color: #123b72;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 15px;
+      top: 12px;
+      background: transparent;
+      border: none;
+      font-size: 28px;
+      color: #555;
+    }
+
+    .student-detail-row {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .student-detail-row strong {
+      min-width: 110px;
+      color: #374151;
+    }
+
+    .student-detail-row span {
+      word-break: break-word;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .cancel-btn {
+      background: #6b7280;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      padding: 10px 16px;
+    }
+
+
+    /* =========================
+       COURSE STATISTICS
+       ========================= */
+
+    .course-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .course-item {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .course-item strong {
+      display: block;
+      color: #123b72;
+      margin-bottom: 5px;
+    }
+
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+       ========================= */
+
+    @media (max-width: 900px) {
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .course-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+      .header {
+        padding: 13px;
+      }
+
+      .header h1 {
+        font-size: 17px;
+      }
+
+      .header p {
+        display: none;
+      }
+
+      .logout-btn {
+        padding: 8px 11px;
+        font-size: 12px;
+      }
+
+      .container {
+        width: 96%;
+        margin: 15px auto;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 15px;
+      }
+
+      .stat-card .number {
+        font-size: 24px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .course-list {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+
+      .danger-btn {
+        width: 100%;
+      }
+
+      .modal {
+        padding: 10px;
+      }
+
+      .modal-content {
+        margin: 20px auto;
+        padding: 18px;
+      }
+
+      .student-detail-row {
+        flex-direction: column;
+        gap: 3px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+       ========================= -->
+
+  <header class="header">
+
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p>Ethio-Digital Excellence — Student Management</p>
+    </div>
+
+    <button
+      type="button"
+      class="logout-btn"
+      onclick="logout()"
+    >
+      Logout
+    </button>
+
+  </header>
+
+
+  <main class="container">
+
+
+    <!-- =========================
+         STATISTICS
+         ========================= -->
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <h3>Total Students</h3>
+        <div
+          class="number"
+          id="totalStudents"
+        >
+          0
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Male Students</h3>
+        <div
+          class="number"
+          id="maleStudents"
+        >
+          0
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Female Students</h3>
+        <div
+          class="number"
+          id="femaleStudents"
+        >
+          0
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Courses</h3>
+        <div
+          class="number"
+          id="totalCourses"
+        >
+          0
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ADD STUDENT
+         ========================= -->
+
+    <section class="card">
+
+      <div class="card-title">
+        Add New Student
+      </div>
+
+      <form id="studentForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="studentName">
+              Full Name *
+            </label>
+
+            <input
+              type="text"
+              id="studentName"
+              required
+              placeholder="Enter full name"
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="studentPhone">
+              Phone
+            </label>
+
+            <input
+              type="tel"
+              id="studentPhone"
+              placeholder="09XXXXXXXX"
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="studentEmail">
+              Email
+            </label>
+
+            <input
+              type="email"
+              id="studentEmail"
+              placeholder="example@email.com"
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="studentAge">
+              Age
+            </label>
+
+            <input
+              type="number"
+              id="studentAge"
+              min="1"
+              max="120"
+              placeholder="Age"
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="studentGender">
+              Gender
+            </label>
+
+            <select id="studentGender">
+
+              <option value="">
+                Select Gender
+              </option>
+
+              <option value="Male">
+                Male
+              </option>
+
+              <option value="Female">
+                Female
+              </option>
+
+            </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="studentCourse">
+              Course
+            </label>
+
+            <input
+              type="text"
+              id="studentCourse"
+              placeholder="Course name"
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="studentCity">
+              City
+            </label>
+
+            <input
+              type="text"
+              id="studentCity"
+              placeholder="City"
+            >
+          </div>
+
+
+          <div class="form-group full">
+            <label for="studentMessage">
+              Message
+            </label>
+
+            <textarea
+              id="studentMessage"
+              placeholder="Additional message..."
+            ></textarea>
+          </div>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="primary-btn"
+        >
+          + Add Student
+        </button>
+
+      </form>
+
+    </section>
+
+
+    <!-- =========================
+         COURSE STATISTICS
+         ========================= -->
+
+    <section class="card">
+
+      <div class="card-title">
+        Course Statistics
+      </div>
+
+      <div
+        id="courseStatistics"
+        class="course-list"
+      >
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         STUDENT LIST
+         ========================= -->
+
+    <section class="card">
+
+      <div class="card-title">
+        Student Management
+      </div>
+
+
+      <div class="toolbar">
+
+        <div class="search-box">
+
+          <input
+            type="search"
+            id="searchStudent"
+            placeholder="Search by name, phone, email, course or city..."
+          >
+
+        </div>
+
+
+        <button
+          type="button"
+          class="danger-btn"
+          onclick="deleteAllStudents()"
+        >
+          Delete All Students
+        </button>
+
+      </div>
+
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>#</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>Course</th>
+              <th>City</th>
+              <th>Registered</th>
+              <th>Actions</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="studentTableBody">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- =========================
+       VIEW STUDENT MODAL
+       ========================= -->
+
+  <div
+    id="viewModal"
+    class="modal"
+  >
+
+    <div class="modal-content">
+
+      <button
+        type="button"
+        class="close-btn"
+        onclick="closeViewModal()"
+      >
+        &times;
+      </button>
+
+      <h2>Student Details</h2>
+
+      <div id="studentDetails"></div>
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="cancel-btn"
+          onclick="closeViewModal()"
+        >
+          Close
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       EDIT STUDENT MODAL
+       ========================= -->
+
+  <div
+    id="editModal"
+    class="modal"
+  >
+
+    <div class="modal-content">
+
+      <button
+        type="button"
+        class="close-btn"
+        onclick="closeEditModal()"
+      >
+        &times;
+      </button>
+
+      <h2>Edit Student</h2>
+
+
+      <form id="editForm">
+
+        <input
+          type="hidden"
+          id="editId"
+        >
+
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="editName">
+              Full Name
+            </label>
+
+            <input
+              type="text"
+              id="editName"
+              required
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="editPhone">
+              Phone
+            </label>
+
+            <input
+              type="tel"
+              id="editPhone"
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="editEmail">
+              Email
+            </label>
+
+            <input
+              type="email"
+              id="editEmail"
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="editAge">
+              Age
+            </label>
+
+            <input
+              type="number"
+              id="editAge"
+              min="1"
+              max="120"
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="editGender">
+              Gender
+            </label>
+
+            <select id="editGender">
+
+              <option value="">
+                Select Gender
+              </option>
+
+              <option value="Male">
+                Male
+              </option>
+
+              <option value="Female">
+                Female
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+            <label for="editCourse">
+              Course
+            </label>
+
+            <input
+              type="text"
+              id="editCourse"
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="editCity">
+              City
+            </label>
+
+            <input
+              type="text"
+              id="editCity"
+            >
+          </div>
+
+
+          <div class="form-group full">
+            <label for="editMessage">
+              Message
+            </label>
+
+            <textarea
+              id="editMessage"
+            ></textarea>
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="cancel-btn"
+            onclick="closeEditModal()"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="primary-btn"
+          >
+            Save Changes
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       FOOTER
+       ========================= -->
+
+  <footer>
+    © 2026 Ethio-Digital Excellence.
+    Admin Dashboard.
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+       ========================= -->
+
+  <script>
+
+    /* =====================================================
+       STORAGE
+       ===================================================== */
+
+    const STUDENT_STORAGE_KEY = "edeStudents";
+
+    let students = [];
+
+
+    /* =====================================================
+       LOAD STUDENTS
+       ===================================================== */
+
+    function loadStudents() {
+
+      try {
+
+        const saved =
+          localStorage.getItem(STUDENT_STORAGE_KEY);
+
+        if (!saved) {
+
+          students = [];
+
+          return;
+
+        }
+
+        const parsed =
+          JSON.parse(saved);
+
+        students =
+          Array.isArray(parsed)
+            ? parsed
+            : [];
+
+      } catch (error) {
+
+        console.error(
+          "Error loading students:",
+          error
+        );
+
+        students = [];
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SAVE STUDENTS
+       ===================================================== */
+
+    function saveStudents() {
+
+      try {
+
+        localStorage.setItem(
+          STUDENT_STORAGE_KEY,
+          JSON.stringify(students)
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error saving students:",
+          error
+        );
+
+        alert(
+          "Student data could not be saved."
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+       ===================================================== */
+
+    function escapeHTML(value) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) {
+
+        return "";
+
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       CREATE STUDENT ID
+       ===================================================== */
+
+    function createStudentId() {
+
+      return (
+        Date.now().toString() +
+        Math.floor(
+          Math.random() * 1000
+        ).toString()
+      );
+
+    }
+
+
+    /* =====================================================
+       ADD STUDENT
+       ===================================================== */
+
+    function addStudent(event) {
+
+      event.preventDefault();
+
+
+      const name =
+        document
+          .getElementById("studentName")
+          .value
+          .trim();
+
+      const phone =
+        document
+          .getElementById("studentPhone")
+          .value
+          .trim();
+
+      const email =
+        document
+          .getElementById("studentEmail")
+          .value
+          .trim();
+
+      const age =
+        document
+          .getElementById("studentAge")
+          .value
+          .trim();
+
+      const gender =
+        document
+          .getElementById("studentGender")
+          .value
+          .trim();
+
+      const course =
+        document
+          .getElementById("studentCourse")
+          .value
+          .trim();
+
+      const city =
+        document
+          .getElementById("studentCity")
+          .value
+          .trim();
+
+      const message =
+        document
+          .getElementById("studentMessage")
+          .value
+          .trim();
+
+
+      if (!name) {
+
+        alert(
+          "Please enter the student's name."
+        );
+
+        return;
+
+      }
+
+
+      const student = {
+
+        id: createStudentId(),
+
+        name: name,
+
+        phone: phone,
+
+        email: email,
+
+        age: age,
+
+        gender: gender,
+
+        course: course,
+
+        city: city,
+
+        message: message,
+
+        registeredAt:
+          new Date().toLocaleString()
+
+      };
+
+
+      students.push(student);
+
+      saveStudents();
+
+      document
+        .getElementById("studentForm")
+        .reset();
+
+      updateStatistics();
+
+      displayStudents(students);
+
+      displayCourseStatistics();
+
+
+      alert(
+        "Student added successfully."
+      );
+
+    }
+
+
+    /* =====================================================
+       DISPLAY STUDENTS
+       ===================================================== */
+
+    function displayStudents(list) {
+
+      const tbody =
+        document.getElementById(
+          "studentTableBody"
+        );
+
+
+      if (!tbody) {
+        return;
+      }
+
+
+      tbody.innerHTML = "";
+
+
+      if (
+        !Array.isArray(list) ||
+        list.length === 0
+      ) {
+
+        tbody.innerHTML = `
+          <tr>
+            <td
+              colspan="9"
+              class="empty"
+            >
+              No students found.
+            </td>
+          </tr>
+        `;
+
+        return;
+
+      }
+
+
+      list.forEach(function(student, index) {
+
+        const row =
+          document.createElement("tr");
+
+
+        row.innerHTML = `
+
+          <td>
+            ${index + 1}
+          </td>
+
+          <td>
+            ${escapeHTML(student.name)}
+          </td>
+
+          <td>
+            ${escapeHTML(student.phone)}
+          </td>
+
+          <td>
+            ${escapeHTML(student.email)}
+          </td>
+
+          <td>
+            ${escapeHTML(student.gender)}
+          </td>
+
+          <td>
+            ${escapeHTML(student.course)}
+          </td>
+
+          <td>
+            ${escapeHTML(student.city)}
+          </td>
+
+          <td>
+            ${escapeHTML(student.registeredAt)}
+          </td>
+
+          <td>
+
+            <div class="action-buttons">
+
+              <button
+                type="button"
+                class="action-btn view-btn"
+                onclick="viewStudent('${escapeHTML(student.id)}')"
+              >
+                View
+              </button>
+
+              <button
+                type="button"
+                class="action-btn edit-btn"
+                onclick="editStudent('${escapeHTML(student.id)}')"
+              >
+                Edit
+              </button>
+
+              <button
+                type="button"
+                class="action-btn delete-btn"
+                onclick="deleteStudent('${escapeHTML(student.id)}')"
+              >
+                Delete
+              </button>
+
+            </div>
+
+          </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+      });
+
+    }
+
+
+    /* =====================================================
+       SEARCH STUDENTS
+       ===================================================== */
+
+    function searchStudents() {
+
+      const input =
+        document.getElementById(
+          "searchStudent"
+        );
+
+
+      if (!input) {
+        return;
+      }
+
+
+      const search =
+        input.value
+          .toLowerCase()
+          .trim();
+
+
+      if (!search) {
+
+        displayStudents(students);
+
+        return;
+
+      }
+
+
+      const filtered =
+        students.filter(function(student) {
+
+          const text = [
+
+            student.name,
+
+            student.phone,
+
+            student.email,
+
+            student.gender,
+
+            student.course,
+
+            student.city,
+
+            student.message
+
+          ]
+          .join(" ")
+          .toLowerCase();
+
+
+          return text.includes(search);
+
+        });
+
+
+      displayStudents(filtered);
+
+    }
+
+
+    /* =====================================================
+       VIEW STUDENT
+       ===================================================== */
+
+    function viewStudent(id) {
+
+      const student =
+        students.find(function(item) {
+
+          return String(item.id) ===
+                 String(id);
+
+        });
+
+
+      if (!student) {
+
+        alert(
+          "Student not found."
+        );
+
+        return;
+
+      }
+
+
+      const details =
+        document.getElementById(
+          "studentDetails"
+        );
+
+
+      if (!details) {
+        return;
+      }
+
+
+      details.innerHTML = `
+
+        <div class="student-detail-row">
+          <strong>Name:</strong>
+          <span>
+            ${escapeHTML(student.name)}
+          </span>
+        </div>
+
+        <div class="student-detail-row">
+          <strong>Phone:</strong>
+          <span>
+            ${escapeHTML(student.phone)}
+          </span>
+        </div>
+
+        <div class="student-detail-row">
+          <strong>Email:</strong>
+          <span>
+            ${escapeHTML(student.email)}
+          </span>
+        </div>
+
+        <div class="student-detail-row">
+          <strong>Age:</strong>
+          <span>
+            ${escapeHTML(student.age)}
+          </span>
+        </div>
+
+        <div class="student-detail-row">
+          <strong>Gender:</strong>
+          <span>
+            ${escapeHTML(student.gender)}
+          </span>
+        </div>
+
+        <div class="student-detail-row">
+          <strong>Course:</strong>
+          <span>
+            ${escapeHTML(student.course)}
+          </span>
+        </div>
+
+        <div class="student-detail-row">
+          <strong>City:</strong>
+          <span>
+            ${escapeHTML(student.city)}
+          </span>
+        </div>
+
+        <div class="student-detail-row">
+          <strong>Message:</strong>
+          <span>
+            ${escapeHTML(student.message)}
+          </span>
+        </div>
+
+        <div class="student-detail-row">
+          <strong>Registered:</strong>
+          <span>
+            ${escapeHTML(student.registeredAt)}
+          </span>
+        </div>
+
+      `;
+
+
+      const modal =
+        document.getElementById(
+          "viewModal"
+        );
+
+
+      if (modal) {
+
+        modal.style.display = "block";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       CLOSE VIEW MODAL
+       ===================================================== */
+
+    function closeViewModal() {
+
+      const modal =
+        document.getElementById(
+          "viewModal"
+        );
+
+
+      if (modal) {
+
+        modal.style.display = "none";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       EDIT STUDENT
+       ===================================================== */
+
+    function editStudent(id) {
+
+      const student =
+        students.find(function(item) {
+
+          return String(item.id) ===
+                 String(id);
+
+        });
+
+
+      if (!student) {
+
+        alert(
+          "Student not found."
+        );
+
+        return;
+
+      }
+
+
+      document
+        .getElementById("editId")
+        .value = student.id || "";
+
+
+      document
+        .getElementById("editName")
+        .value = student.name || "";
+
+
+      document
+        .getElementById("editPhone")
+        .value = student.phone || "";
+
+
+      document
+        .getElementById("editEmail")
+        .value = student.email || "";
+
+
+      document
+        .getElementById("editAge")
+        .value = student.age || "";
+
+
+      document
+        .getElementById("editGender")
+        .value = student.gender || "";
+
+
+      document
+        .getElementById("editCourse")
+        .value = student.course || "";
+
+
+      document
+        .getElementById("editCity")
+        .value = student.city || "";
+
+
+      document
+        .getElementById("editMessage")
+        .value = student.message || "";
+
+
+      const modal =
+        document.getElementById(
+          "editModal"
+        );
+
+
+      if (modal) {
+
+        modal.style.display = "block";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       UPDATE STUDENT
+       ===================================================== */
+
+    function updateStudent(event) {
+
+      event.preventDefault();
+
+
+      const id =
+        document
+          .getElementById("editId")
+          .value;
+
+
+      const index =
+        students.findIndex(
+          function(student) {
+
+            return String(student.id) ===
+                   String(id);
+
+          }
+        );
+
+
+      if (index === -1) {
+
+        alert(
+          "Student not found."
+        );
+
+        return;
+
+      }
+
+
+      students[index].name =
+        document
+          .getElementById("editName")
+          .value
+          .trim();
+
+
+      students[index].phone =
+        document
+          .getElementById("editPhone")
+          .value
+          .trim();
+
+
+      students[index].email =
+        document
+          .getElementById("editEmail")
+          .value
+          .trim();
+
+
+      students[index].age =
+        document
+          .getElementById("editAge")
+          .value
+          .trim();
+
+
+      students[index].gender =
+        document
+          .getElementById("editGender")
+          .value
+          .trim();
+
+
+      students[index].course =
+        document
+          .getElementById("editCourse")
+          .value
+          .trim();
+
+
+      students[index].city =
+        document
+          .getElementById("editCity")
+          .value
+          .trim();
+
+
+      students[index].message =
+        document
+          .getElementById("editMessage")
+          .value
+          .trim();
+
+
+      saveStudents();
+
+      updateStatistics();
+
+      displayStudents(students);
+
+      displayCourseStatistics();
+
+      closeEditModal();
+
+
+      alert(
+        "Student updated successfully."
+      );
+
+    }
+
+
+    /* =====================================================
+       CLOSE EDIT MODAL
+       ===================================================== */
+
+    function closeEditModal() {
+
+      const modal =
+        document.getElementById(
+          "editModal"
+        );
+
+
+      if (modal) {
+
+        modal.style.display = "none";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       DELETE STUDENT
+       ===================================================== */
+
+    function deleteStudent(id) {
+
+      const student =
+        students.find(function(item) {
+
+          return String(item.id) ===
+                 String(id);
+
+        });
+
+
+      if (!student) {
+
+        alert(
+          "Student not found."
+        );
+
+        return;
+
+      }
+
+
+      const confirmed =
+        confirm(
+          "Are you sure you want to delete " +
+          (student.name || "this student") +
+          "?"
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      students =
+        students.filter(function(item) {
+
+          return String(item.id) !==
+                 String(id);
+
+        });
+
+
+      saveStudents();
+
+      updateStatistics();
+
+      displayStudents(students);
+
+      displayCourseStatistics();
+
+    }
+
+
+    /* =====================================================
+       DELETE ALL
+       ===================================================== */
+
+    function deleteAllStudents() {
+
+      if (students.length === 0) {
+
+        alert(
+          "There are no students to delete."
+        );
+
+        return;
+
+      }
+
+
+      const confirmed =
+        confirm(
+          "Are you sure you want to delete ALL students?"
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      students = [];
+
+
+      localStorage.removeItem(
+        STUDENT_STORAGE_KEY
+      );
+
+
+      updateStatistics();
+
+      displayStudents(students);
+
+      displayCourseStatistics();
+
+
+      alert(
+        "All students have been deleted."
+      );
+
+    }
+
+
+    /* =====================================================
+       UPDATE STATISTICS
+       ===================================================== */
+
+    function updateStatistics() {
+
+      const total =
+        students.length;
+
+
+      const male =
+        students.filter(function(student) {
+
+          return String(
+            student.gender || ""
+          ).toLowerCase() === "male";
+
+        }).length;
+
+
+      const female =
+        students.filter(function(student) {
+
+          return String(
+            student.gender || ""
+          ).toLowerCase() === "female";
+
+        }).length;
+
+
+      const courses =
+        new Set(
+          students
+            .map(function(student) {
+
+              return String(
+                student.course || ""
+              ).trim();
+
+            })
+            .filter(Boolean)
+        ).size;
+
+
+      const totalElement =
+        document.getElementById(
+          "totalStudents"
+        );
+
+
+      const maleElement =
+        document.getElementById(
+          "maleStudents"
+        );
+
+
+      const femaleElement =
+        document.getElementById(
+          "femaleStudents"
+        );
+
+
+      const courseElement =
+        document.getElementById(
+          "totalCourses"
+        );
+
+
+      if (totalElement) {
+        totalElement.textContent = total;
+      }
+
+      if (maleElement) {
+        maleElement.textContent = male;
+      }
+
+      if (femaleElement) {
+        femaleElement.textContent = female;
+      }
+
+      if (courseElement) {
+        courseElement.textContent = courses;
+      }
+
+    }
+
+
+    /* =====================================================
+       COURSE STATISTICS
+       ===================================================== */
+
+    function displayCourseStatistics() {
+
+      const container =
+        document.getElementById(
+          "courseStatistics"
+        );
+
+
+      if (!container) {
+        return;
+      }
+
+
+      container.innerHTML = "";
+
+
+      const courseCounts = {};
+
+
+      students.forEach(function(student) {
+
+        const course =
+          String(
+            student.course || ""
+          ).trim();
+
+
+        if (!course) {
+          return;
+        }
+
+
+        if (!courseCounts[course]) {
+          courseCounts[course] = 0;
+        }
+
+
+        courseCounts[course]++;
+
+      });
+
+
+      const courses =
+        Object.keys(courseCounts)
+          .sort();
+
+
+      if (courses.length === 0) {
+
+        container.innerHTML = `
+          <div class="course-item">
+            <strong>No courses yet</strong>
+            <span>
+              Add students with course information.
+            </span>
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      courses.forEach(function(course) {
+
+        const item =
+          document.createElement("div");
+
+
+        item.className =
+          "course-item";
+
+
+        item.innerHTML = `
+
+          <strong>
+            ${escapeHTML(course)}
+          </strong>
+
+          <span>
+            ${courseCounts[course]} student(s)
+          </span>
+
+        `;
+
+
+        container.appendChild(item);
+
+      });
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+       ===================================================== */
+
+    function logout() {
+
+      const confirmed =
+        confirm(
+          "Are you sure you want to logout?"
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      localStorage.removeItem(
+        "edeAdminLoggedIn"
+      );
+
+
+      window.location.href =
+        "login.html";
+
+    }
+
+
+    /* =====================================================
+       CLOSE MODALS OUTSIDE
+       ===================================================== */
+
+    window.addEventListener(
+      "click",
+      function(event) {
+
+        const viewModal =
+          document.getElementById(
+            "viewModal"
+          );
+
+
+        const editModal =
+          document.getElementById(
+            "editModal"
+          );
+
+
+        if (
+          event.target === viewModal
+        ) {
+
+          closeViewModal();
+
+        }
+
+
+        if (
+          event.target === editModal
+        ) {
+
+          closeEditModal();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       INITIALIZE
+       ===================================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function() {
+
+        loadStudents();
+
+        updateStatistics();
+
+        displayStudents(students);
+
+        displayCourseStatistics();
+
+
+        const studentForm =
+          document.getElementById(
+            "studentForm"
+          );
+
+
+        if (studentForm) {
+
+          studentForm.addEventListener(
+            "submit",
+            addStudent
+          );
+
+        }
+
+
+        const editForm =
+          document.getElementById(
+            "editForm"
+          );
+
+
+        if (editForm) {
+
+          editForm.addEventListener(
+            "submit",
+            updateStudent
+          );
+
+        }
+
+
+        const searchInput =
+          document.getElementById(
+            "searchStudent"
+          );
+
+
+        if (searchInput) {
+
+          searchInput.addEventListener(
+            "input",
+            searchStudents
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       EXPOSE FUNCTIONS
+       ===================================================== */
+
+    window.viewStudent =
+      viewStudent;
+
+    window.closeViewModal =
+      closeViewModal;
+
+    window.editStudent =
+      editStudent;
+
+    window.closeEditModal =
+      closeEditModal;
+
+    window.deleteStudent =
+      deleteStudent;
+
+    window.deleteAllStudents =
+      deleteAllStudents;
+
+    window.logout =
+      logout;
+
+    window.saveStudents =
+      saveStudents;
+
+    window.loadStudents =
+      loadStudents;
+
+  </script>
+
+</body>
+</html>
