@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Ethio-Digital Excellence</title>
+
     <style>
         * {
             margin: 0;
@@ -11,10 +13,16 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: #f4f6f9;
             color: #333;
         }
+
         header {
             background: #0d47a1;
             color: white;
@@ -24,33 +32,40 @@
             align-items: center;
             flex-wrap: wrap;
         }
+
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
         }
+
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 10px;
+            margin: 0 8px;
             font-size: 0.95rem;
         }
+
         nav a:hover {
             text-decoration: underline;
         }
+
         .hero {
             background: linear-gradient(135deg, #1565c0, #0d47a1);
             color: white;
             text-align: center;
             padding: 4rem 1rem;
         }
+
         .hero h1 {
             font-size: 2.2rem;
             margin-bottom: 1rem;
         }
+
         .hero p {
             font-size: 1.1rem;
             margin-bottom: 2rem;
         }
+
         .btn {
             background: white;
             color: #0d47a1;
@@ -61,27 +76,32 @@
             margin: 5px;
             display: inline-block;
         }
+
         .btn-outline {
             background: transparent;
             border: 2px solid white;
             color: white;
         }
+
         .container {
             max-width: 1100px;
             margin: auto;
             padding: 2rem 1rem;
         }
+
         .section-title {
             text-align: center;
             color: #0d47a1;
             margin-bottom: 2rem;
             font-size: 1.8rem;
         }
+
         .courses-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
+
         .course-card {
             background: white;
             padding: 1.5rem;
@@ -89,16 +109,19 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             text-align: center;
         }
+
         .course-card h3 {
             color: #0d47a1;
             margin-bottom: 0.5rem;
         }
+
         .price {
             font-weight: bold;
             color: #2e7d32;
             margin: 1rem 0;
             font-size: 1.1rem;
         }
+
         .pay-btn {
             background: #1565c0;
             color: white;
@@ -109,13 +132,101 @@
             text-decoration: none;
             display: inline-block;
         }
-        .about-section {
+
+        .about-section,
+        .contact-section,
+        .admin-section {
             background: white;
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-top: 2rem;
         }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .contact-card {
+            background: #f4f6f9;
+            padding: 1.3rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .contact-card h3 {
+            color: #0d47a1;
+            margin-bottom: 0.7rem;
+        }
+
+        .contact-card a {
+            color: #1565c0;
+            text-decoration: none;
+            font-weight: bold;
+            word-break: break-word;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        .admin-box {
+            max-width: 450px;
+            margin: auto;
+        }
+
+        .admin-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .admin-btn {
+            width: 100%;
+            background: #0d47a1;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .admin-btn:hover {
+            background: #1565c0;
+        }
+
+        #loginMessage {
+            text-align: center;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        #adminDashboard {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .logout-btn {
+            background: #c62828;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
         footer {
             text-align: center;
             padding: 1.5rem;
@@ -123,68 +234,429 @@
             color: white;
             margin-top: 3rem;
         }
+
+        @media (max-width: 700px) {
+            header {
+                text-align: center;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            nav {
+                width: 100%;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <div class="logo">Ethio-Digital Excellence</div>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#courses">Courses</a>
-            <a href="#about">About</a>
-            <a href="#register">Register</a>
-            <a href="#admin">Admin Login</a>
-        </nav>
-    </header>
+<header>
+    <div class="logo">Ethio-Digital Excellence</div>
 
-    <section id="home" class="hero">
-        <h1>Ethio-Digital Excellence</h1>
-        <p>Learn Digital Skills. Build Your Future.</p>
-        <div>
-            <a href="#courses" class="btn">Explore Courses</a>
-            <a href="#register" class="btn btn-outline">Register Now</a>
-        </div>
-    </section>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#about">About</a>
+        <a href="#register">Register</a>
+        <a href="#contact">Contact</a>
+        <a href="#admin">Admin Login</a>
+    </nav>
+</header>
 
-    <div class="container">
-        <!-- COURSES & PAYMENT SECTION -->
-        <section id="courses">
-            <h2 class="section-title">Our Digital Skills Courses & Pricing</h2>
-            <div class="courses-grid">
-                <div class="course-card">
-                    <h3>1. Programming Fundamentals</h3>
-                    <p>Learn programming fundamentals, coding logic, and basic software structures.</p>
-                    <div class="price">Kafaltii: 500 ETB</div>
-                    <a href="#register" class="pay-btn">Kaffalii / Galmaa'i</a>
-                </div>
-                <div class="course-card">
-                    <h3>2. Microsoft Excel & Data</h3>
-                    <p>Master spreadsheets, formulas, data management, and automated templates.</p>
-                    <div class="price">Kafaltii: 400 ETB</div>
-                    <a href="#register" class="pay-btn">Kaffalii / Galmaa'i</a>
-                </div>
-                <div class="course-card">
-                    <h3>3. Web Development Basics</h3>
-                    <p>Build responsive web pages using HTML, CSS, and modern web frameworks.</p>
-                    <div class="price">Kafaltii: 600 ETB</div>
-                    <a href="#register" class="pay-btn">Kaffalii / Galmaa'i</a>
-                </div>
-            </div>
-        </section>
 
-        <!-- ABOUT SECTION -->
-        <section id="about" class="about-section">
-            <h2 class="section-title" style="margin-bottom: 1rem;">About Ethio-Digital Excellence</h2>
-            <p style="line-height: 1.6; text-align: center;">
-                Ethio-Digital Excellence initiative is dedicated to rendering digital literacy, computer programming skills, and ICT infrastructure for students and community members. Our mission is to bridge the digital divide and empower the youth with modern technological capabilities.
-            </p>
-        </section>
+<!-- HOME -->
+<section id="home" class="hero">
+
+    <h1>Ethio-Digital Excellence</h1>
+
+    <p>
+        Learn Digital Skills. Build Your Future.
+    </p>
+
+    <div>
+        <a href="#courses" class="btn">
+            Explore Courses
+        </a>
+
+        <a href="#register" class="btn btn-outline">
+            Register Now
+        </a>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Ethio-Digital Excellence. All rights reserved.</p>
-    </footer>
+</section>
+
+
+<div class="container">
+
+    <!-- COURSES -->
+    <section id="courses">
+
+        <h2 class="section-title">
+            Our Digital Skills Courses & Pricing
+        </h2>
+
+        <div class="courses-grid">
+
+            <div class="course-card">
+
+                <h3>
+                    1. Programming Fundamentals
+                </h3>
+
+                <p>
+                    Learn programming fundamentals, coding logic,
+                    and basic software structures.
+                </p>
+
+                <div class="price">
+                    Kafaltii: 500 ETB
+                </div>
+
+                <a href="#register" class="pay-btn">
+                    Kaffalii / Galmaa'i
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <h3>
+                    2. Microsoft Excel & Data
+                </h3>
+
+                <p>
+                    Master spreadsheets, formulas, data management,
+                    and automated templates.
+                </p>
+
+                <div class="price">
+                    Kafaltii: 400 ETB
+                </div>
+
+                <a href="#register" class="pay-btn">
+                    Kaffalii / Galmaa'i
+                </a>
+
+            </div>
+
+
+            <div class="course-card">
+
+                <h3>
+                    3. Web Development Basics
+                </h3>
+
+                <p>
+                    Build responsive web pages using HTML,
+                    CSS, and modern web frameworks.
+                </p>
+
+                <div class="price">
+                    Kafaltii: 600 ETB
+                </div>
+
+                <a href="#register" class="pay-btn">
+                    Kaffalii / Galmaa'i
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section id="about" class="about-section">
+
+        <h2 class="section-title" style="margin-bottom: 1rem;">
+            About Ethio-Digital Excellence
+        </h2>
+
+        <p style="line-height: 1.6; text-align: center;">
+
+            Ethio-Digital Excellence initiative is dedicated
+            to rendering digital literacy, computer programming
+            skills, and ICT infrastructure for students and
+            community members.
+
+            Our mission is to bridge the digital divide and
+            empower the youth with modern technological
+            capabilities.
+
+        </p>
+
+    </section>
+
+
+    <!-- REGISTER -->
+    <section id="register" class="about-section">
+
+        <h2 class="section-title">
+            Student Registration
+        </h2>
+
+        <p style="text-align:center; line-height:1.6;">
+
+            Online student registration will be available here.
+            Please contact Ethio-Digital Excellence for
+            registration and course information.
+
+        </p>
+
+        <div style="text-align:center; margin-top:20px;">
+
+            <a href="#contact" class="pay-btn">
+                Contact Us
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+
+        <h2 class="section-title">
+            Contact Ethio-Digital Excellence
+        </h2>
+
+        <div class="contact-grid">
+
+
+            <!-- PHONE -->
+            <div class="contact-card">
+
+                <h3>📞 Phone</h3>
+
+                <p>
+                    <a href="tel:0919232401">
+                        0919232401
+                    </a>
+                </p>
+
+            </div>
+
+
+            <!-- TELEGRAM -->
+            <div class="contact-card">
+
+                <h3>💬 Telegram</h3>
+
+                <p>
+                    <a href="https://t.me/teachershamil"
+                       target="_blank">
+
+                        @teachershamil
+
+                    </a>
+                </p>
+
+            </div>
+
+
+            <!-- EMAIL -->
+            <div class="contact-card">
+
+                <h3>📧 Email</h3>
+
+                <p>
+
+                    <a href="mailto:shamilshamshadin58@gmail.com">
+
+                        shamilshamshadin58@gmail.com
+
+                    </a>
+
+                </p>
+
+            </div>
+
+
+            <!-- WEBSITE -->
+            <div class="contact-card">
+
+                <h3>🌐 Website</h3>
+
+                <p>
+                    <a href="#home">
+                        Ethio-Digital Excellence
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ADMIN LOGIN -->
+    <section id="admin" class="admin-section">
+
+        <h2 class="section-title">
+            Admin Login
+        </h2>
+
+        <div class="admin-box">
+
+            <input
+                type="text"
+                id="adminUsername"
+                placeholder="Admin Username"
+            >
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Admin Password"
+            >
+
+            <button
+                class="admin-btn"
+                onclick="adminLogin()">
+
+                Login
+
+            </button>
+
+            <div id="loginMessage"></div>
+
+
+            <div id="adminDashboard">
+
+                <h3>
+                    Welcome, Administrator!
+                </h3>
+
+                <p style="margin-top:10px;">
+
+                    You have successfully logged in
+                    to the Ethio-Digital Excellence
+                    Admin area.
+
+                </p>
+
+                <button
+                    class="logout-btn"
+                    onclick="adminLogout()">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <p>
+        &copy; 2026 Ethio-Digital Excellence.
+        All rights reserved.
+    </p>
+
+    <p style="margin-top:8px;">
+
+        📞 0919232401 |
+        💬 @teachershamil |
+        📧 shamilshamshadin58@gmail.com
+
+    </p>
+
+</footer>
+
+
+<script>
+
+    /*
+     * ADMIN LOGIN
+     *
+     * Username: admin
+     * Password: Admin@2026
+     *
+     * NOTE:
+     * This is a simple front-end login.
+     * It is NOT secure authentication for a
+     * production website.
+     */
+
+    function adminLogin() {
+
+        const username =
+            document.getElementById("adminUsername").value;
+
+        const password =
+            document.getElementById("adminPassword").value;
+
+        const message =
+            document.getElementById("loginMessage");
+
+        const dashboard =
+            document.getElementById("adminDashboard");
+
+
+        if (
+            username === "admin" &&
+            password === "Admin@2026"
+        ) {
+
+            message.innerHTML =
+                "Login successful!";
+
+            message.style.color = "green";
+
+            dashboard.style.display = "block";
+
+        } else {
+
+            message.innerHTML =
+                "Invalid username or password.";
+
+            message.style.color = "red";
+
+            dashboard.style.display = "none";
+
+        }
+
+    }
+
+
+    function adminLogout() {
+
+        document.getElementById("adminUsername").value = "";
+
+        document.getElementById("adminPassword").value = "";
+
+        document.getElementById("adminDashboard").style.display = "none";
+
+        document.getElementById("loginMessage").innerHTML =
+            "You have been logged out.";
+
+        document.getElementById("loginMessage").style.color = "#c62828";
+
+    }
+
+</script>
 
 </body>
 </html>
